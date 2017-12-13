@@ -1,0 +1,127 @@
+<include file="public/header"/>
+
+<link href="__STATIC__/dzp/css/style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="__STATIC__/dzp/js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="__STATIC__/dzp/js/awardRotate.js"></script>
+	<script type="text/javascript" src="__STATIC__/dzp/js/DZP.js"></script>
+	<script type="text/javascript">
+		var Data={$d};
+		var Url="{:U('Mobile/User/GPrize')}";
+		var mf={$mf-5|abs};
+		var jf ={$user["pay_points"]};
+	</script>
+
+<style>
+body{font-size:x-small}
+.offercard_page{width:5.9rem;height:2.44rem;background:url(__STATIC__/images/offercard.png?1438789002) no-repeat;background-size:5.9rem 12.6rem;margin:0 auto; margin-top:10px; margin-bottom:10px}
+.offercard_type1{background-position:0 -2.54rem}
+.offercard_page .icon_doller{font-size:.48rem;font-style:normal;color:#FFF;opacity:0.7;float:left;margin:.5rem 0 0 .3rem}
+.offercard_page .offercard_price{font-family:Impact;font-size:1.64rem;float:left;color:#FFF;opacity:0.7;margin:.6rem 0 0 .15rem;width:2.3rem;text-align:center;letter-spacing:-.1rem}
+.offercard_page .offercard_price em{font-style:normal;font-size:1.4rem}
+.offercard_page .offercard_typename{float:left;margin:1.5rem 0 0 .04rem;color:#fff;opacity:0.7}
+.offercard_page .offercard_classfy{font-size:.24rem;color:#FFF;opacity:0.7;float:left;margin:.25rem 0 0 .1rem;width:2.5rem}
+.offercard_page .offercard_type{font-size:.24rem;color:#FFF;opacity:0.7;float:left;margin:.1rem 0 0 .1rem;width:2.5rem}
+.offercard_page .offercard_use{float:left;background:#72c039;height:.56rem;width:2.2rem;border-radius:.28rem;line-height:.56rem;text-align:center;color:#d5ffb7;margin:.25rem 0 0 .1rem}
+.offercard_page .offercard_limit{width:80%;float:left;margin:0 0 0 1.08rem;color:#61ac2b}
+.offercard_type2{background-position:0 -5.08rem}
+.offercard_type2 .offercard_use{color:#c0ddff;background:#5ba0f1}
+.offercard_type2 .offercard_limit{color:#3984dc}
+.offercard_type3{background-position:0 -7.62rem}
+.offercard_type3 .offercard_use{color:#ffa4aa;background:#e03c47}
+.offercard_type3 .offercard_limit{color:#dd343f}
+.offercard_type4{background-position:0 -10.16rem}
+.offercard_type4 .offercard_use{color:#ffd6ae;background:#f2a456}
+.offercard_type4 .offercard_limit{color:#e09041}
+.offercard_over{background-position:0 0}
+.offercard_over .offercard_use{color:#e9e9e9;background:#ccc}
+.offercard_over .offercard_limit{color:#c4c4c4}
+</style>
+<script type="text/javascript">
+	function remReSize(){var w = $(window).width();try{w = $(parent.window).width();}catch(ex){};if(w>640){w = 640;};$('html').css('font-size',100/640*w+'px');$('#js_style_for_pc').remove();$('body').append('<style id="js_style_for_pc">.m_header{margin-left: -'+w/2+'px;}.m_menu{margin-left: -'+w/2+'px;}</style>');};remReSize();$(window).resize(remReSize);$(document).ready(function() {remReSize();});for(var i=0;i<3;i++){setTimeout(remReSize, 100*i);};</script>
+<body>
+<header>
+  <div class="tab_nav">
+    <div class="header">
+      <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+      <div class="h-mid">大转盘</div>
+      <div class="h-right">
+        <aside class="top_bar">
+          <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</header>
+<include file="public/menu"/>
+
+<body class="keBody">
+	<div class="kePublic">
+	<div class="jihui">您还有<font>{$mf-5|abs}</font>次免费抽奖机会</div>
+		<!--效果html开始-->
+		<div style="max-width:800px; margin:0 auto">
+			<foreach name="obj" item="vo" key="k">
+				<img src="{$vo.tubiao}" id="tb_{$vo.id}" style="display:none;" />
+			</foreach>
+			<img src="__STATIC__/dzp/images/1.png" id="shan-img" style="display:none;" />
+			<img src="__STATIC__/dzp/images/2.png" id="sorry-img" style="display:none;" />
+			<div class="banner">
+				<div class="turnplate" style="background-image:url(__STATIC__/dzp/images/turnplate-bg.png);background-size:100% 100%;">
+					<canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
+					<img class="pointer" src="__STATIC__/dzp/images/turnplate-pointer.png" />
+				</div>
+			</div>
+			<div class="infop">			
+				<ul>	
+					<li>剩余积分： {$user["pay_points"]} 分</li>
+					<li>今日抽奖： {$NowDay} 人</li>
+					<li>历史抽奖： {$zcy} 人</li>
+				</ul>
+			</div>
+			<div class="slide-title" style="border-bottom:1px #FFF solid;">
+				中奖名单
+			</div>
+			<div class="slide-title">
+				<span>中奖人</span>
+				<span>奖品</span>
+				<span>时间</span>
+			</div>
+			<div class="slide-container">
+				<ul class="slide-list js-slide-list">
+					<foreach name="zjjl" item="vo" key="k">
+						<li class='<if condition="$k%2 eq 0 ">odd<else />even</if>'><span>{$vo.nickname}</span><span>【{$vo.name}】 {$vo.bz}</span><span>{$vo.dtime|substr=0,10}</span></li>
+					</foreach>
+				</ul>
+			</div>
+
+			<div class="instructions">
+				<h3>抽奖活动说明</h3>
+				<div class="p_box">
+					<p>1. 本商城会员每日可免费抽奖5次！</p>
+					<p>2. 可以花10个商城积分抽奖一次！</p>
+					<p>3. 奖品将在24小时之内，安排发放到个人中心！</p>
+					<p style="color:#FFFF05;">注：本抽奖活动全部解释权归《乐乐淘商城》所有。</p>
+				</div>
+			</div>
+
+			<div class="instructions">
+				<h3>热线电话：020-3147 7181</h3>
+			</div>
+		</div>
+		<!--效果html结束-->
+		<script>
+		var doscroll = function(){
+			var $parent = $('.js-slide-list');
+			var $first = $parent.find('li:first');
+			var height = $first.height();
+			$first.animate({
+				marginTop: -height + 'px'
+				}, 500, function() {
+				$first.css('marginTop', 0).appendTo($parent);
+			});    
+		};
+		setInterval(function(){doscroll()}, 2000);
+		</script>
+	</div>
+</body>
+
+</html>

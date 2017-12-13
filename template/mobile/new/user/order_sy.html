@@ -1,0 +1,58 @@
+<include file="public/header" />
+
+<body>
+    <header>
+        <div class="tab_nav">
+            <div class="header">
+                <div class="h-left">
+                    <a class="sb-back" href="javascript:history.back(-1)" title="返回"></a>
+                </div>
+                <div class="h-mid">试用订单</div>
+                <div class="h-right">
+                    <aside class="top_bar">
+                        <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more">
+                            <a href="javascript:;"></a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </header>
+    <include file="public/menu" />
+
+    <div id="tbh5v0">
+        <volist name="data" id="data">
+            <div class="order_list">
+                <h2>
+                    <a href="javascript:void(0);">
+                        <img src="/template/mobile/new/static/images/dianpu.png">
+                        <span>订单号:{$data.orderid}</span>
+                        <strong>
+                            <b>
+                                <if condition="$data.zt eq -1">申请中
+                                    <elseif condition="$data.zt eq 0" />申请失败
+                                    <else />申请成功</if>
+                            </b>
+                            <img src="/template/mobile/new/static/images/icojiantou1.png">
+                        </strong>
+                    </a>
+                </h2>
+                <dl style="position: relative">
+                    <dt>
+                        <img src="{$data.original_img}">
+                    </dt>
+                    <dd class="name" style="height:50px;">
+                        <strong>{$data.name}</strong>
+                        <span style="position: absolute;">{$data.spec}</span>
+                    </dd>
+                </dl>
+                <div class="pic" style="text-align:left">{$data.address}</div>
+            </div>
+        </volist>
+
+    </div>
+
+
+</body>
+
+</html>

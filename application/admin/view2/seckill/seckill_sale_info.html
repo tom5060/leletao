@@ -1,0 +1,224 @@
+<include file="public/layout" />
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>秒杀管理 - 编辑秒杀</h3>
+                <h5>网站系统秒杀活动详情页</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="handleposition" method="post">
+        <input type="hidden" id="goods_id" name="goods_id" value="{$info.goods_id}">
+        <input type="hidden" name="id" value="{$info.id}">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>秒杀标题</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="title" id="title" value="{$info.title}" class="input-txt">
+                    <p class="notic">请填写秒杀标题</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>Banner</label>
+                </dt>
+                <dd class="opt">
+                    <input type="checkbox" name="banner" id="banner" value="1" <if condition="$info['banner']">checked</if> class="input-txt">
+                    <p class="notic">是否显示在Banner栏</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label>Banner图上传</label>
+                </dt>
+                <dd class="opt">
+                    <div class="input-file-show">
+                        <span class="show">
+                            <a id="img_a" target="_blank" class="nyroModal" rel="gal" href="{$info.banner_img}">
+                                <i id="img_i" class="fa fa-picture-o" onmouseover="layer.tips('<img src={$info.banner_img}>',this,{tips: [1, '#fff']});" onmouseout="layer.closeAll();"></i>
+                            </a>
+                        </span>
+                        <span class="type-file-box">
+                            <input type="text" id="imagetext" name="banner_img" value="{$info.banner_img}" class="type-file-text">
+                            <input type="button" name="button" id="button1" value="选择上传..." class="type-file-button">
+                            <input class="type-file-file" onClick="GetUploadify(1,'','goods','img_call_back')" size="30" hidefocus="true" nc_type="change_site_logo" title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+                            </span>
+                    </div>
+                    <span class="err"></span>
+                    <p class="notic">请上传图片格式文件</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>选择秒杀商品</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" readonly  id="goods_name" name="goods_name" value="{$info.goods_name}" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">
+                        <a onclick="selectGoods()" class="ncap-btn"><i class="fa fa-search"></i>选择商品</a>
+                    </p>
+                </dd>
+            </dl>
+          <!--  <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>限时秒杀价格</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="price" name="price" value="{$info.price}"  onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="input-txt">
+                    <p class="notic">商品秒杀价格,单位：元</p>
+                </dd>
+            </dl>-->
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>参加秒杀数量</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="goods_num" id="goods_num" value="{$info.goods_num}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="input-txt">
+                    <p class="notic">此秒杀活动最多允许秒杀的商品数量</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>限购数量</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="buy_limit" name="buy_limit" value="{$info.buy_limit}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"  class="input-txt">
+                    <p class="notic">限时秒杀每个人能购买的数量</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>秒杀日期</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="start_time" name="start_time" value="{$info.start_time}"  class="input-txt">
+                    <p class="notic">日期</p>
+                </dd>
+            </dl>
+           <!-- <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>开始时间</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="start_time" name="start_time" value="{$info.start_time}"  class="input-txt">
+                    <p class="notic">秒杀开始时间</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>结束时间</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="end_time" name="end_time" value="{$info.end_time}" class="input-txt">
+                    <p class="notic">秒杀结束时间</p>
+                </dd>
+            </dl>-->
+            <style>
+                .period_list label { width: 100px;  display: inline-block;}
+            </style>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>时间段</label>
+                </dt>
+                <dd class="opt period_list">
+                    <php>
+                        $checked = "";
+                        for($i = 0;$i <= 23;$i++) {
+                            if($info['period_time'] == $i){
+                                $checked = 'checked="checked"';
+                            }
+                            echo '<label><input name="period_time" type="radio" value="'.$i.'" '.$checked.' />'.$i.':00</label>';
+                            $checked = "";
+                        }
+                    </php>
+                    <p class="notic">秒杀时间段</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>排序</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="sort" name="sort" value="{$info.sort}" class="input-txt">
+                    <p class="notic">排序</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>已下单数量</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="order_num" name="order_num" value="{$info.order_num}" class="input-txt">
+                    <p class="notic">已下单数量</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label>秒杀介绍</label>
+                </dt>
+                <dd class="opt">
+                    <textarea placeholder="请输入活动介绍" name="description" rows="6" class="tarea">{$info.description}</textarea>
+                    <p class="notic">秒杀描述介绍</p>
+                </dd>
+            </dl>
+            <div class="bot"><a onclick="adsubmit()" class="ncap-btn-big ncap-btn-green">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#start_time').layDate();
+        //$('#end_time').layDate();
+    })
+    function adsubmit(){
+        if($('#title').val() ==''){
+            layer.msg('秒杀标题不能为空');return;
+        }
+        if($('#price').val() ==''){
+            layer.msg('秒杀价格不能为空');return;
+        }
+        if($('#goods_num').val() ==''){
+            layer.msg('参加秒杀数量不能为空');return;
+        }
+        if($('#buy_limit').val() ==''){
+            layer.msg('限购数量不能为空');return;
+        }
+        $('#handleposition').submit();
+    }
+    function selectGoods(){
+        var url = "{:U('Promotion/search_goods',array('tpl'=>'select_goods'))}";
+        layer.open({
+            type: 2,
+            title: '选择商品',
+            shadeClose: true,
+            shade: 0.2,
+            area: ['75%', '75%'],
+            content: url,
+        });
+    }
+
+    function call_back(goods_id,goods_name,store_count,price){
+        $('#goods_id').val(goods_id);
+        $('#goods_name').val(goods_name);
+        $('#group_num').val(store_count);
+        $('#price').val(price);
+        layer.closeAll('iframe');
+    }
+    function img_call_back(fileurl_tmp)
+    {
+        $("#imagetext").val(fileurl_tmp);
+        $("#img_a").attr('href', fileurl_tmp);
+        $("#img_i").attr('onmouseover', "layer.tips('<img src="+fileurl_tmp+">',this,{tips: [1, '#fff']});");
+    }
+</script>
+</body>
+</html>

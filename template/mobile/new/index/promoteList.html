@@ -1,0 +1,85 @@
+﻿<html>
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="minimal-ui=yes,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>抢购-{$tpshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/group_buy.css"/>
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+<script src="__PUBLIC__/js/global.js"></script>
+<script src="__PUBLIC__/js/mobile_common.js"></script>
+<script src="__STATIC__/new_index/js/progressBar.js"></script>
+
+</head>
+<body style="background:#FFF;">
+<div class="tab_nav">
+  <div class="header">
+    <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+    <div class="h-mid">限时抢购</div>
+    <div class="h-right">
+      <aside class="top_bar">
+        <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+      </aside>
+    </div>
+  </div>
+</div>
+<include file="public/menu"/>
+
+<!-- <h3 class="pr_box_tit">限时限量，低价疯抢</h3> -->
+<style type="text/css">
+    .times{width: 100%;height: 70px;background: #333333;}
+    .times li{display: block;width: 25%;overflow: hidden;float: left;text-align: center;height: 70px;line-height: 70px;}
+    .times .hover{background: #FF3988;}
+    .times li font{display: block;height: 25px;line-height: 25px;margin-top: 10px;}
+    .times li span{display: block;height: 25px;line-height: 25px;}
+    .times li a{color: #CBCBCB;}
+</style>
+<div class="times">
+    <ul>
+        <li <if condition="$Think.get.period_time eq 1">class="hover"</if> ><a href="{:U('Mobile/Index/promoteList', array('period_time' => 1))}"><font>10:00</font><span>已开抢</span></a></li>
+        <li <if condition="$Think.get.period_time eq 2">class="hover"</if> ><a href="{:U('Mobile/Index/promoteList', array('period_time' => 2))}"><font>14:00</font><span>已开抢</span></a></li>
+        <li <if condition="$Think.get.period_time eq 3">class="hover"</if> ><a href="{:U('Mobile/Index/promoteList', array('period_time' => 3))}"><font>18:00</font><span>抢购中</span></a></li>
+        <li <if condition="$Think.get.period_time eq 4">class="hover"</if> ><a href="{:U('Mobile/Index/promoteList', array('period_time' => 4))}"><font>22:00</font><span>即将开抢</span></a></li>
+    </ul>
+</div>
+<ul class="promoteList" id="good_list"> 
+<foreach name="goodsList" item="v" key="k" >
+ <li> 
+<!--
+    在需要插入进度条的节点添加 class:div,和进度条的值。也可动态取
+ -->
+     <a class="url" href="{:U('/Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}"> 
+     <img src="{$v.goods_id|goods_thum_images=200,200}">   </a>
+     <a href="{:U('/Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}"  class="info_wrap">
+         <div class="fn good">{$v.goods_name}</div>
+         <?php
+            $sheng = $v['goods_num'] - $v['order_num'];
+
+            $w = ($v['order_num'] / $v['goods_num']) * 100;
+         ?>
+         <div class="div" w="{$w}"></div>
+         <div class="price_wrap">
+            <span class="price" style="display:;">已抢购{$v[order_num]}件</span>
+            <span class="s_price" style="display:;">仅剩{$sheng}件</span>
+         </div> 
+         <div class="bottom_info">
+            <span class="remain_num" style="display:;">￥{$v[price]}元</span>
+            <del class="remain_del" style="display:;">￥{$v[shop_price]}元</del>
+         </div> 
+         <div class="bottom_right">
+            <span class="remain_qg" style="display:;">立即抢购</span>
+         </div> 
+     </a>
+</li>
+
+</foreach>
+</ul>
+<a href="javascript:goTop();" class="gotop"><img src="__STATIC__/images/topup.png"></a> 
+<include file="public/footer"/>
+<include file="public/footer_nav"/>
+</body>
+</html>

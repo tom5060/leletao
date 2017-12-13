@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>拼团</title>
+    <link rel="stylesheet" type="text/css" href="/public/layer_mobile/need/layer.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pintuan/css/confirm.css"/>
+    <script type="text/javascript" src="/public/js/fontSet.js"></script>
+    <script type="text/javascript" src="/public/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/public/layer_mobile/layer.js"></script>
+</head>
+<body>
+    <div class="confirm">
+        <div class="dizhiTitle"> 选择收货地址：</div>
+        <ul class="pintuanDizhi">
+            <!-- <li>
+                <label for="gou1">
+                    <i><input type="radio" id="gou1" name="1"/></i>
+                    <div class="dizhi">
+                        <span>梁江文</span>15800001371
+                        <p>广州市白云区广州市白云区广州市白云区广州市白云区</p>
+                    </div>
+                </label>
+            </li> -->
+        </ul>
+        <div class="cpInfo">
+            <div class="cpInfoImg">
+                <img src="{$goods.original_img}" alt="">
+            </div>
+            <div class="cpInfoBox">
+                <h3>{$goods.goods_name}</h3>
+                <div class="cpInfoMoney">&yen;{$goods.shop_price}</div>
+                <!-- <div class="youfei">邮费：&yen;</div> -->
+            </div>
+
+        </div>
+        <div class="cpsum">
+            <div class="goumaisum">购买数量</div>
+            <div class="goumaiAdd">
+                <span>-</span>
+                <input id="sum" type="text" readonly value="1"/>
+                <span>+</span>
+            </div>
+        </div>
+
+        <foreach name="paymentList" item="v"  key="k">
+        <div class="zhifu">
+            <a href="#">
+                <div class="zhifuImg"><img src="__STATIC__/pintuan/images/{$v['code']}.jpg"/></div>
+                <div class="wxzhifu"><input type="radio" value="pay_code={$v['code']}" class="c_checkbox_t" name="pay_radio" />{$v['name']}</div>
+            </a>
+        </div>
+        </foreach>
+
+        <div class="zfsum">
+            实付款：<span>&yen;{$goods.shop_price}</span>
+            <a id="zhifu">立即支付</a>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            var pintuanDizhi = $('.pintuanDizhi');
+            var sum;
+            $('.goumaiAdd span').eq(0).click(function() {
+                sum = $('#sum').val();
+                if(sum > 1){
+                    sum--;
+                    $('#sum').val(sum)
+                }
+            });
+            $('.goumaiAdd span').eq(1).click(function() {
+                sum = $('#sum').val();
+                sum++;
+                $('#sum').val(sum)
+
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/mobile/Pintuan/getAddress",
+                dataType: "json",
+                success: function (res) {
+                    var _html = '';
+                    $.each(res.data, function(index,value){
+                        var inputstr = '';
+                        if(index == 0){
+                            inputstr = '<input type="radio" id="gou'+index+'" name="1" value="'+value.address_id+'" checked="checked"/>';
+                        }else{
+                            inputstr = '<input type="radio" id="gou'+index+'" name="1" value="'+value.address_id+'" />';
+                        }
+                        _html += '<li><label for="gou'+index+'"><i>'+inputstr+'</i>'+
+                                '<div class="dizhi"><span>'+value.consignee+'</span>'+value.mobile+'<p>'+value.province+value.city+value.district+value.twon+value.address+'</p>'+
+                                '</div></label></li>';
+                    });
+                    pintuanDizhi.append(_html);
+                    $('.pintuanDizhi').children('input').eq(0).attr('checked', 'checked');
+                }
+            });
+            var sumdata = {
+                act: "{:I('act','')}",
+                goods_id: {:I('goods_id',0)},
+                address_id: '',
+                buy_num: $('#sum').val(),
+                t_id: {:I('id',0)}
+            }
+            $("#zhifu").click(function() {
+                sumdata.address_id = $('input:radio:checked').val();
+                sumdata.buy_num = $('#sum').val();
+                $.ajax({
+                    type: "GET",
+                    url: "/mobile/Pintuan/addGroups",
+                    data: sumdata,
+                    dataType: "json",
+                    success: function (res) {
+                        if(res.status > 0)
+                        {
+                            var getCode = "{:U('Mobile/Payment/getCode')}";
+                            var url = getCode + '?order_id='+ res.result + '&pay_radio=' + $('input[name=pay_radio]').val();
+                            location.href = url;
+                        }
+                    }
+                });
+            });
+        })
+    </script>
+</body>
+</html>

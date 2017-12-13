@@ -1,0 +1,133 @@
+<include file="public/layout"/>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>商城设置</h3>
+                <h5>网站全局内容基本选项设置</h5>
+            </div>
+            <ul class="tab-base nc-row">
+                <li><a href="{:U('System/index')}"><span>商城信息</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'basic'))}"><span>基本设置</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'shopping'))}"><span>购物流程</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'sms'))}"><span>短信设置</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'smtp'))}"><span>邮件设置</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'water'))}"><span>水印设置</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'distribut'))}" ><span>分销设置</span></a></li>
+                <li><a href="{:U('System/zhuanpan_setting')}"  class="current"><span>大转盘设置</span></a></li>
+                <!--<li><a href="{:U('System/index',array('inc_type'=>'wap'))}"><span>WAP设置</span></a></li>-->
+                <!--<li><a href="{:U('System/index',array('inc_type'=>'extend'))}"><span>扩展设置</span></a></li>-->
+            </ul>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div class="explanation" id="explanation">
+        <div class="title" id="checkZoom"><i class="fa fa-lightbulb-o"></i>
+            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <span id="explanationZoom" title="收起提示"></span></div>
+        <ul>
+            <li>系统平台全局设置,包括基础设置、购物、短信、邮件、水印和分销等相关模块。</li>
+        </ul>
+    </div>
+        <div class="ncap-form-default">
+
+            <!-- 开始 -->
+            <style type="text/css">
+            .s_box{width: 250px;float: left;overflow: hidden;border:1px solid #ccc;height: 35px;line-height: 35px;margin: 0px auto;}
+            .s_box li{width: 100px;float: left;margin-left: 20px;}
+            </style>
+            <div class="s_box">
+                <li><a href="{:U('Admin/System/winning_list')}">全部</a></li>
+                <li><a href="{:U('Admin/System/winning_list',array('status' => '2'))}">未处理</a></li>
+            </div>
+            <table>
+                <tbody>
+                        <tr style="border-bottom:1px solid #f1f1f1;line-height:35px;">
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 50px;">ID</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 50px;">会员ID</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: center; width: 230px;">会员昵称</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 200px;">消费积分(若是免费次数则为0)</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 50px;">奖项</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 200px;">奖品</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 200px;">抽奖时间</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 50px;">当前状态</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 350px;">操作说明</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">操作</div>
+                            </td>
+                        </tr>
+                    <volist name="data" id="vo">
+                    <?php
+
+                        $sta = array(
+                            '1' => '<font style="color:#007B00">已处理</font>',
+                            '0' => '<font style="color:#f00">未处理</font>',
+                            );
+
+                        $user_name = M('users')->where('user_id', $vo['uid'])->field('nickname')->find();
+                    ?>
+                        <tr style="border-bottom:1px solid #f1f1f1;line-height:35px;">
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 50px;">{$vo.id}</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 50px;">{$vo.uid}</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: center; width: 230px;">{$user_name['nickname']}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">{$vo.consume}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 50px;">{$vo.name}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">{$vo.bz}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 200px;">{$vo.dtime}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 50px;">{$sta[$vo['status']]}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 350px;">{$vo.desc}</div>
+                            </td>
+                            <td align="center" class="handle">
+                                <div style="text-align: center; width: 170px; max-width:170px;">
+                                    <a href="{:U('Admin/System/winning_edit',array('id' => $vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </volist>
+                    </tbody>
+                </table>
+                    {$page}
+            <!-- 开始 end -->
+        </div>
+</div>
+<div id="goTop"><a href="JavaScript:void(0);" id="btntop"><i class="fa fa-angle-up"></i></a><a href="JavaScript:void(0);" id="btnbottom"><i class="fa fa-angle-down"></i></a></div>
+</body>
+</html>

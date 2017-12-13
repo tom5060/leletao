@@ -1,0 +1,120 @@
+<include file="public/layout"/>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>商城设置</h3>
+                <h5>网站全局内容基本选项设置</h5>
+            </div>
+            <ul class="tab-base nc-row">
+                <li><a href="{:U('System/index')}"><span>商城信息</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'basic'))}"><span>基本设置</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'shopping'))}"><span>购物流程</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'sms'))}"><span>短信设置</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'smtp'))}"><span>邮件设置</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'water'))}"><span>水印设置</span></a></li>
+                <li><a href="{:U('System/index',array('inc_type'=>'distribut'))}" ><span>分销设置</span></a></li>
+                <li><a href="{:U('System/zhuanpan_setting')}"  class="current"><span>大转盘设置</span></a></li>
+                <!--<li><a href="{:U('System/index',array('inc_type'=>'wap'))}"><span>WAP设置</span></a></li>-->
+                <!--<li><a href="{:U('System/index',array('inc_type'=>'extend'))}"><span>扩展设置</span></a></li>-->
+            </ul>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div class="explanation" id="explanation">
+        <div class="title" id="checkZoom"><i class="fa fa-lightbulb-o"></i>
+            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <span id="explanationZoom" title="收起提示"></span></div>
+        <ul>
+            <li>系统平台全局设置,包括基础设置、购物、短信、邮件、水印和分销等相关模块。</li>
+        </ul>
+    </div>
+            <p style="color:#f00;font-size:18px;margin-top:10px;"><a href="{:U('Admin/System/winning_list')}">中奖列表</a></p>
+        <div class="ncap-form-default">
+
+        <form method="post" name="myform" action="{:U('Admin/System/zhuanpan_status')}">
+            <font style="color:#f00;font-size:16px;">大转盘开关<span style="color:#333;font-size:12px;">(关闭后，用户将无法抽奖)</span>：</font>
+            <select name="status">
+                <if condition="$status['status'] eq 1">
+                    <option value="1" selected="selected">开启</option>
+                    <option value="0">关闭</option>
+                <elseif condition="$status['status'] eq 0">
+                    <option value="0" selected="selected">关闭</option>
+                    <option value="1">开启</option>
+                </if>
+            </select>
+            <input type="submit" value="提交" />
+        </form>
+
+            <!-- 开始 -->
+            <table>
+                <tbody>
+                        <tr style="border-bottom:1px solid #f1f1f1;line-height:35px;">
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 50px;">ID</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 50px;">奖项</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">对应奖品</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 50px;">奖品数量</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">奖品概率</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 250px;">修改时间</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">排序</div>
+                            </td>
+                            <td align="center" class="handle">
+                                <div style="text-align: center; width: 100px;">编辑</div>
+                            </td>
+                        </tr>
+                    <volist name="zhuanpan_data" id="vo">
+                        <tr style="border-bottom:1px solid #f1f1f1;line-height:35px;">
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 50px;">{$vo.id}</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 50px;">{$vo.name}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">{$vo.bz}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 50px;">{$vo.numb}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">{$vo.chance}%</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 250px;">{$vo.Ntime}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">{$vo.sort}</div>
+                            </td>
+                            <td align="center" class="handle">
+                                <div style="text-align: center; width: 170px; max-width:170px;">
+                                    <a href="{:U('Admin/System/zhuanpan_edit',array('id' => $vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </volist>
+                    </tbody>
+                </table>
+                <p style="color:#f00;font-size:18px;margin-top:5px;">注：为了方便计算，中奖概率需设置满100%。</p>
+                <p style="color:#f00;font-size:18px;margin-top:5px;">当前总中奖概率为：{$chance_sum}%</p>
+            <!-- 开始 end -->
+        </div>
+</div>
+<div id="goTop"><a href="JavaScript:void(0);" id="btntop"><i class="fa fa-angle-up"></i></a><a href="JavaScript:void(0);" id="btnbottom"><i class="fa fa-angle-down"></i></a></div>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>抢购</title>
+    <link rel="stylesheet" type="text/css" href="/public/swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/public/layer_mobile/need/layer.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/buying/css/buying.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+    <script type="text/javascript" src="/public/js/fontSet.js"></script>
+    <script type="text/javascript" src="/public/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/public/layer_mobile/layer.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <header id="header">
+        <a href="{:U('Goods/categoryList')}" class="top_bt"></a><a id="search_text" class='user_btn'></a>
+        <span href="javascript:void(0)" class="logo">{$tpshop_config['shop_info_store_name']}</span>
+    </header>
+    <div class="slide">
+        <div class="swiper-container-slide">
+            <div class="swiper-wrapper slide-list">
+                <!-- <div class="swiper-slide"><img src="__STATIC__/spellgroup/images/img5.png" alt=""></div> -->
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    <div class="qiangtou-countdown">
+        <div class="swiper-countdown">
+            <div class="swiper-wrapper qiangtou-date">
+            </div>
+        </div>
+    </div>
+    <div class="pin-tips">
+        <span>抢购进行中</span>
+        <span id="divdown1">距明日抢购仅剩<i>88</i>时<i>8</i>分<i>8</i>秒</span>
+    </div>
+    <div class="qiangtou-list">
+        <ul>
+            <!-- <li>
+                <div class="left-img"><img src="__STATIC__/buying/images/img6.jpg" alt=""></div>
+                <div class="cp-info">
+                    <p class="cp-info-title">德国芭乐雅Balea玻尿酸原液德国芭乐雅Balea玻尿酸原液德国芭乐雅Balea玻尿酸原液 平衡亮肤精华7ml德国芭乐雅Balea玻尿酸原液 平衡亮肤精华7ml</p>
+                    <div class="biao">
+                        <span>生活家电</span>
+                        <span>7.8折</span>
+                    </div>
+                    <p class="cp-price">&yen;79.00<i>￥339</i></p>
+                    <p class="tips-sum">已售出66220件</p>
+                    <a href="#" class="goumai">立即抢购</a>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="/public/swiper/swiper-3.4.2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var ulLists = $(".qiangtou-list ul"); //ul
+        var dateList = $(".qiangtou-date");
+        var tel = '<div class="swiper-slide"><a href="/Mobile/Qianggoulist/index.html"><span>明日预告</span><p>敬请期待</p></a></div>';
+        var slideList = $('.slide-list');
+        var timeObj = { //入参对象
+            hour: 08
+        }
+        layer.open({
+            type: 2,
+            shadeClose: false,
+            content: '加载中'
+        });
+        //轮播图
+        $.ajax({
+            type: "GET",
+            url: "/mobile/buying/getSlider",
+            dataType: "json",
+            success: function (res) {
+                var _html = '';
+                $.each(res.data, function(index,value){
+                    _html += ' <div class="swiper-slide"><a href="/Mobile/Goods/goodsInfo/id/'+value.goods_id+'"><img src="'+value.banner_img+'" alt=""></a></div>';
+                })
+                slideList.append(_html);
+                var swiperSlide = new Swiper('.swiper-container-slide', {
+                    pagination: '.swiper-pagination',
+                    autoplay: 3000,
+                    paginationClickable: true
+                });
+                loadDateList(); //抢购时间列表
+                getList();// 加载默认列表
+            }
+        });
+        //抢购时间列表
+        function loadDateList(){
+            $.ajax({
+                type: "GET",
+                url: "/mobile/buying/getDateList",
+                dataType: "json",
+                success: function (res) {
+                    var _html = '';
+                    $.each(res.data, function(index,value){
+                        _html += '<div class="swiper-slide"><span>'+value.time+':00</span><p>'+value.text+'</p></div>';
+                    })
+                    dateList.append(_html+tel); //拼接
+
+                    var swiper = new Swiper('.swiper-countdown', { //滚动控件
+                        slidesPerView: 4,
+                        spaceBetween: 50
+                    });
+
+                    //点击时间
+                    $(".qiangtou-date .swiper-slide").click(function () {
+                        var _index = $(this).index();
+                        var thislength = $(".qiangtou-date .swiper-slide").length;
+                        if(thislength-1 == _index){
+                            return;
+                        }
+                        layer.open({
+                            type: 2,
+                            shadeClose: false,
+                            content: '加载中'
+                        });
+                        $(this).addClass("qiangtou-date-active").siblings().removeClass("qiangtou-date-active");
+                        ulLists.eq(_index).show().siblings().hide();
+                        var hour = $(this).siblings('span').text();
+                        timeObj.hour = $(this).text().slice(0,2);
+                        getList(timeObj) //列表
+                    })
+                }
+            });
+        }
+
+        //获取产品列表
+
+        function getList(obj){
+            $.ajax({
+                type: "GET",
+                url: "/mobile/buying/getGoods",
+                data: obj,
+                dataType: "json",
+                success: function (res) {
+                    if(res.data.length == 0){
+                        layer.open({
+                            content: "此时间段无活动！",
+                            btn: '确定'
+                        });
+                        return;
+                    }
+                    var now = new Date();
+                    ulLists.text(' ');
+                    var _html = ' ';
+                    $.each(res.data, function(index,value){
+                        var hourOf = new Date().getHours();
+                        var aLink = '';
+                        if(hourOf<value.period_time){
+                            aLink = '<a href="javacript:;" class="dateTips">';
+                        }else{
+                            aLink = '<a href="/Mobile/Goods/goodsInfo/id/'+value.goods_id+'">';
+                        }
+                        _html += '<li>'+aLink+
+                                    '<div class="left-img"><img src="'+value.thumb+'" alt=""></div>'+
+                                    '<div class="cp-info">'+
+                                        '<p class="cp-info-title">'+value.goods_name+'</p>'+
+                                        '<p class="cp-price">&yen;'+value.shop_price+'<i>&yen;'+value.market_price+'</i></p>'+
+                                        '<p class="tips-sum">已售出'+value.order_num+'件</p>'+
+                                        '<p href="javacript:;" class="goumai"><img src="__STATIC__/buying/images/btn.png" /></p>'+
+                                    '</div>'+
+                               '</a></li>'
+                        })
+                        ulLists.append(_html);
+                        layer.closeAll(); //关闭加载弹窗
+
+                        $(".dateTips").click(function(){
+                            layer.open({
+                                content: '亲，抢购时间还没到呢',
+                                btn: '确定'
+                            });
+                        })
+                }
+            });
+        }
+
+
+
+        //倒计时
+        var day3 = new Date();
+        day3.setTime(day3.getTime()+24*60*60*1000);
+        var interval = 1000;
+        function ShowCountDown(year,month,day,divname){
+            var now = new Date();
+            var endDate = new Date(year, month-1, day);
+            var leftTime = endDate.getTime()-now.getTime();
+            var leftsecond = parseInt(leftTime/1000);
+            var day1=Math.floor(leftsecond/(60*60*24));
+            var hour=Math.floor((leftsecond-day1*24*60*60)/3600);
+            var minute=Math.floor((leftsecond-day1*24*60*60-hour*3600)/60);
+            var second=Math.floor(leftsecond-day1*24*60*60-hour*3600-minute*60);
+            var cc = document.getElementById(divname);
+            cc.innerHTML = "距明日抢购仅剩："+hour+"小时"+minute+"分"+second+"秒";
+        }
+        window.setInterval(function(){
+            ShowCountDown(day3.getFullYear(),day3.getMonth()+1,day3.getDate(),'divdown1');
+        }, interval);
+
+
+    });
+</script>
+<include file="public/footer_nav"/>
+</body>
+</html>

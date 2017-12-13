@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>抢购</title>
+    <link rel="stylesheet" type="text/css" href="/public/swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/public/layer_mobile/need/layer.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/qianggoulist/css/qianggoulist.css"/>
+    <script type="text/javascript" src="/public/js/fontSet.js"></script>
+    <script type="text/javascript" src="/public/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/public/layer_mobile/layer.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <header class="qigou-header">
+        <a href="javascript:history.go(-1);"><img src="__STATIC__/qianggoulist/images/i-back.png" alt=""></a>
+        <span>抢购</span>
+    </header>
+
+    <ul class="cp-list">
+        <!-- <li>
+            <div class="cp-left">
+                <img src="__STATIC__/qianggoulist/images/img6.jpg" alt="">
+            </div>
+            <div class="cp-right">
+                <div class="cp-right-title">
+                    <span>特卖</span>产品产品产品产品产品产品产品产品产品
+                    <div class="money-sum">
+                        &yen;74.00
+                    </div>
+                </div>
+            </div>
+        </li> -->
+    </ul>
+</div>
+
+<script type="text/javascript" src="/public/swiper/swiper-3.4.2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var ulList = $(".cp-list");
+        layer.open({
+            type: 2,
+            shadeClose: false,
+            content: '加载中'
+        });
+        //轮播图
+        $.ajax({
+            type: "GET",
+            url: "/mobile/buying/tomorrow?page=1&limit=100",
+            dataType: "json",
+            success: function (res) {
+                if(res.data.length == 0){
+                    layer.open({
+                        content: "暂无产品",
+                        btn: '确定',
+                        yes: function(index){
+                          window.location.href = "http://www.leletao88.com/mobile/Index/index.html";
+                        }
+                    });
+                    return;
+                }
+                var _html = '';
+                ulList.append('');
+                $.each(res.data, function(index,value){
+                    _html += '<li>'+
+                        '<div class="cp-left"><img src="'+value.thumb+'" alt=""></div>'+
+                        '<div class="cp-right">'+
+                            '<div class="cp-right-title"><span>特卖</span>'+value.goods_name+'</div>'+
+                            '<div class="money-sum">&yen;'+value.price+'</div>'+
+                        '</div>'+
+                    '</li>';
+                });
+                ulList.append(_html);
+                layer.closeAll(); //关闭加载弹窗
+
+                $('.cp-list').click(function(event) {
+                    layer.open({
+                        content: "亲，活动还没开始呢！",
+                        btn: '确定'
+                    });
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

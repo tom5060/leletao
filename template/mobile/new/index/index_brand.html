@@ -1,0 +1,397 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>品牌团</title>
+<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
+<script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
+<script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
+<script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+<script src="__PUBLIC__/js/global.js"></script>
+<script src="__PUBLIC__/js/mobile_common.js"></script>
+<!-- IE8及以下支持JSON -->
+<!--[if lt IE 9]>
+    <script src="https://g.alicdn.com/aliww/ww/json/json.js" charset="utf-8"></script>
+<![endif]-->
+<!-- WSDK-->
+<script src="https://g.alicdn.com/aliww/h5.openim.sdk/1.0.6/scripts/wsdk.js"></script>
+</head>
+<body>
+<div id="page" class="showpage">
+<div>
+<header id="header"> 
+<a href="{:U('Goods/categoryList')}" class="top_bt"></a><a id="search_text" class='user_btn'></a>
+<span href="javascript:void(0)" class="logo">{$tpshop_config['shop_info_store_name']}</span> 
+</header>
+
+<div id="scrollimg" class="scrollimg">
+  <div class="bd">
+   <ul>
+    <adv pid ="2" limit="5" item="v">
+        <li><a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> ><img src="{$v[ad_code]}" title="{$v[title]}"  width="100%" style="{$v[style]}"/></a></li>
+      </adv>                        
+     </ul>
+  </div>
+  <div class="hd">
+  <ul></ul>
+  </div>
+</div>
+<script type="text/javascript">
+  TouchSlide({ 
+    slideCell:"#scrollimg",
+    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+    mainCell:".bd ul", 
+    effect:"leftLoop", 
+    autoPage:true,//自动分页
+    autoPlay:true //自动播放
+  });
+</script> 
+
+<?php
+  // 获取地址栏参数
+  $cat_id = I('cat_id');
+?>
+
+<!-- 品牌团切换 -->
+<!-- <link href="__STATIC__/index_brand/css/style.css" type="text/css" rel="stylesheet" />
+<script src="__STATIC__/index_brand/js/jquery-1.4.1.min.js" type="text/javascript"></script>
+<script src="__STATIC__/index_brand/js/script.js" type="text/javascript"></script>
+
+<div class="uldiv">
+  <div class="btndiv">
+    <a class="abtn aleft" href="#left">左移</a>
+    <a class="abtn aright" href="#right">右移</a>
+  </div>
+  <div class="scrollcontainer">
+    <ul>
+
+      <li>
+      <div class="logo"><img src="__STATIC__/new_index/brand_logo.png"></div>
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版</div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版 双卡双待双通</div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版 双卡双待双通荣耀X2 标准版 双卡双待双通荣耀X2 标准版 双卡双待双通荣耀X2 标准版 双卡双待双通荣耀X2 标准版 双卡双待双通 </div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+      </li>
+      
+
+      <li>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版</div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版 双卡双待双通</div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版 双卡双待双通 </div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+      </li>
+
+
+      <li>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版</div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版 双卡双待双通</div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版 双卡双待双通 </div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+      </li>
+
+      <li>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版</div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版 双卡双待双通</div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+        <a href="#"><div class="list">
+          <div class="thumb"><img src="__STATIC__/new_index/brand_list_01.png" /></div>
+          <div class="info">
+            <div class="gname">荣耀X2 标准版 双卡双待双通荣耀X2 标准版 双卡双待双通荣耀X2 标准版 双卡双待双通 </div>
+            <div class="jiage">
+              <span>￥1999</span>
+              <font>950已购买</font>
+              <div class="li_img"><img src="__STATIC__/images/index_flow.png" /></div>
+            </div>
+          </div>
+        </div></a>
+
+      </li>
+
+
+    </ul>
+  </div>
+</div> -->
+
+<script type="text/javascript">
+// var li_width = 0;
+// var ul_width = 0;
+// var scrollcontainer_width = 0;
+// ul_width = $('.scrollcontainer li').length*$('.scrollcontainer li').width()+$('.scrollcontainer li').width()*8;
+// li_width = $('.scrollcontainer li').width();
+// scrollcontainer_width = $('.scrollcontainer').width();
+// $(".scrollcontainer ul").width(ul_width);
+// $(".scrollcontainer li").width(scrollcontainer_width);
+// $(function () {
+//   $(".uldiv").Xslider({
+//     unitdisplayed: 1,
+//     numtoMove: 1,
+//     speed: 300,
+//     scrollobjSize: Math.ceil($(".uldiv").find("li").length / 1) * li_width
+//   })
+// })
+</script>
+<!-- 品牌团切换end -->
+
+<script type="text/javascript">
+// 拖动加载
+  var range = 50;             //距下边界长度/单位px  
+  var maxnum = 20;            //设置加载最多次数  
+  var num = 1;  
+$(function(){
+  getGoodsList(1);
+  //$('#J_ItemList').more({'address': url});
+  
+  
+  var totalheight = 0;   
+  $(window).scroll(function(){  
+      var srollPos = $(window).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)  
+        
+      //console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop());  
+      //console.log("页面的文档高度 ："+$(document).height());  
+      //console.log('浏览器的高度：'+$(window).height());  
+        
+      totalheight = parseFloat($(window).height()) + parseFloat(srollPos);  
+      if(($(document).height()-range) <= totalheight  && num != maxnum) {   
+          var n=num+=1;       
+          getGoodsList(n);
+          return;
+          //num++;  
+      }  
+  });  
+  // 拖动加载end
+  
+});
+
+var brand_id = "<?php echo $brand_id = I('brand_id'); ?>";
+var page = 1;
+function getGoodsList(n){
+  $('.get_more').show();
+  $.ajax({
+    type : "get",
+    url:"/index.php?m=Mobile&c=Index&a=ajaxGetMoreBrand&p="+n+"&brand_id=" + brand_id,
+    success: function(data)
+    {
+      if(data){
+        $("#J_ItemList>ul").append(data);
+        //page++;
+        $('.get_more').hide();
+      }else{
+        $('.get_more').hide();
+        $('#getmore').remove();
+      }
+    }
+  }); 
+}
+</script> 
+
+
+<div class="floor_body2" >
+  <h2>————&nbsp;猜您喜欢&nbsp;————</h2>
+  <div id="J_ItemList">
+    <ul class="product single_item info">
+    </ul>
+    <a href="javascript:;" class="get_more" style="text-align:center; display:block;"> 
+    <img src='__STATIC__/images/category/loader.gif' width="12" height="12"> </a> 
+  </div>
+  <div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem;">
+    <a href="javascript:void(0)" onClick="getGoodsList()">点击加载更多</a>
+  </div>
+</div>
+<include file="public/footer"/>
+<script>
+function goTop(){
+  $('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="__STATIC__/images/topup.png"></a> 
+</div>
+<div id="J_demo" style="display:none"></div>
+ <div id="search_hide" class="search_hide">
+ <h2> <span class="close"><img src="__STATIC__/images/close.png"></span>关键搜索</h2>
+ <div id="mallSearch" class="search_mid">
+        <div id="search_tips" style="display:none;"></div>
+          <ul class="search-type">
+            <li  class="cur"  num="0">宝贝</li>
+            <!--<li  num="1">店铺</li>-->
+          </ul> 
+          <div class="searchdotm"> 
+          <form class="set_ip"name="sourch_form" id="sourch_form" method="post" action="{:U('Goods/search')}">
+              <div class="mallSearch-input">
+                <div id="s-combobox-135">
+                    <input class="s-combobox-input" name="q" id="q"  placeholder="请输入关键词"  type="text" value="<?php echo I('q'); ?>" />
+                </div>                                                
+                <input type="button" value="" class="button"  onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();" />
+              </div>
+          </form>
+         </div> 
+        </div>     
+
+
+
+      <section class="mix_recently_search"><h3>热门搜索</h3>
+       <ul>
+            <foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+               <li><a href="{:U('Goods/search',array('q'=>$wd))}" <if condition="$k eq 0">class="ht"</if>>{$wd}</a></li>
+            </foreach>         
+        </ul>
+        </section>
+        
+    </div>
+                                             
+</div>
+<include file="public/footer_nav"/>
+ 
+<script type="text/javascript">
+$(function() {
+    $('#search_text').click(function(){
+        $(".showpage").children('div').hide();
+        $("#search_hide").css('position','fixed').css('top','0px').css('width','100%').css('z-index','999').show();
+    })
+    $('#get_search_box').click(function(){
+        $(".showpage").children('div').hide();
+        $("#search_hide").css('position','fixed').css('top','0px').css('width','100%').css('z-index','999').show();
+    })
+    $("#search_hide .close").click(function(){
+        $(".showpage").children('div').show();
+        $("#search_hide").hide();
+    })
+});
+</script>
+<script>
+$('.search-type li').click(function() {
+    $(this).addClass('cur').siblings().removeClass('cur');
+    $('#searchtype').val($(this).attr('num'));
+});
+$('#searchtype').val($(this).attr('0'));
+</script>
+<script src="__PUBLIC__/js/jqueryUrlGet.js"></script><!--获取get参数插件-->
+<script> set_first_leader(); //设置推荐人 </script>
+</body>
+</html>

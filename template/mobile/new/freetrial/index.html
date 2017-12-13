@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer_mobile/layer.js"></script>
+    <title>乐乐淘免费试用中心 - {$info.title}</title>
+    <style type="text/css">
+        body {
+            font-size: 62.5%;
+            /*10 ÷ 16 × 100% = 62.5%*/
+        }
+
+        h1 {
+            font-size: 1.6em;
+            /*2.4em × 10 = 24px */
+        }
+
+        p {
+            font-size: 1.2em;
+            /*1.4em × 10 = 14px */
+        }
+
+        li {
+            font-size: 1.2em;
+            /*1.4 × ? = 14px ? */
+        }
+
+        .cc {
+            width: 100%;
+            margin: auto;
+            min-width: 300px;
+            max-width: 640px;
+        }
+
+        .divkk {
+            width: 100%;
+            margin: auto;
+            height: 33%;
+            margin-top: 3%;
+
+            overflow: hidden;
+        }
+
+        .yy {
+            width: 15%;
+            height: 23%;
+            float: left;
+            margin-top: 1%;
+        }
+
+        .zz {
+            width: 80%;
+            height: 26%;
+            float: right;
+            margin-right: 4%;
+            font-size: 1.2em;
+            background-image: url(img/1_02.jpg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 100% 100%;
+        }
+
+        .chanpin {
+            width: 45%;
+            height: 45%;
+            max-height: 180px;
+            float: left;
+            margin-left: 7%;
+            margin-top: 4.5%;
+            border: thin double #CCCCCC;
+            overflow: hidden;
+        }
+
+        .wenzi {
+            width: 40%;
+            float: right;
+            height: 45%;
+            text-align: center;
+            margin-right: 5%;
+            margin-top: 4.5%;
+        }
+
+        .shenq {
+            float: left;
+            width: 55%;
+            height: 0.5%;
+            border-top-width: medium;
+            border-bottom-width: medium;
+            border-left-width: medium;
+            border-top-style: dashed;
+            border-bottom-style: dashed;
+            border-left-style: dashed;
+            border-top-color: #CCCCCC;
+            border-bottom-color: #CCCCCC;
+            border-left-color: #CCCCCC;
+            font-size: 1.2em;
+            color: #EA0F61;
+            margin-top: 1%;
+            text-align: center;
+            padding: 0.4rem 0;
+            margin-left: 7%;
+        }
+
+        .anniu {
+            float: right;
+            width: 29%;
+            height: 0.4%;
+            margin-right: 8%;
+        }
+
+        .dkk {
+            width: 100%;
+            height: 74%;
+            background-image: url(img/3_02.jpg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 100% 100%;
+            overflow: hidden;
+            padding-bottom: 5%;
+        }
+
+        .zz li {
+            margin-left: 6%;
+            margin-bottom: 1%;
+            padding-right: 3%;
+        }
+
+        #img {
+            max-width: 100%;
+        }
+
+        h1.title {
+            font-size: 1.4em;
+        }
+
+        .layui-m-layercont p.p1 span {
+            padding-right: 10px;
+        }
+
+        .layui-m-layercont p.p1 a {
+            padding: 5px 10px;
+            margin-right: 5px;
+            border: 1px solid #eeeeee;
+        }
+
+        .layui-m-layercont p.p1 a.active {
+            border: 1px solid #E71F19;
+        }
+
+        .layui-m-layercont p a.btn {
+            background: #dd2726;
+            color: #FFFFFF;
+            padding: 5px 20px;
+            font-size: 1.2rem;
+        }
+
+        #sqform {
+            padding-right: 20px;
+        }
+    </style>
+</head>
+
+<body class="cc">
+    <div style="width:100%;text-align:center;"><img src="__STATIC__/images/img/bannner.jpg" style="width:100%;" />
+    </div>
+
+    <div style="width:100%; height:50%; padding-top:10%;">
+        <p align="center"><img src="__STATIC__/images/img/1_09.jpg" style="width:100%;" /></p>
+        <p align="center" class="STYLE2">免费/包邮/品牌/正品</p>
+    </div>
+    <h1 style="text-align:center">结束时间
+        <font id="DJS" style="color:#EA0F61;font-size:1.4rem;padding-left:1rem;"></font>
+    </h1>
+    <script>
+        function newDate(strdate) {
+            var arr = strdate.split(/[- : \/]/);
+            date = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+            return date;
+        }
+        function GetRTime() {
+            var EndTime = newDate('{$info.end_time}');//new Date('{$info.end_time}');
+            var NowTime = newDate('{:date("Y-m-d H:i:s")}');//Date();
+            var t = EndTime.getTime() - NowTime.getTime();
+            var d = 0;
+            var h = 0;
+            var m = 0;
+            var s = 0;
+            if (t >= 0) {
+                d = Math.floor(t / 1000 / 60 / 60 / 24);
+                h = Math.floor(t / 1000 / 60 / 60 % 24);
+                m = Math.floor(t / 1000 / 60 % 60);
+                s = Math.floor(t / 1000 % 60);
+            }
+            document.getElementById("DJS").innerHTML = d + "天" + h + "时" + m + "分" + s + "秒";
+        }
+        setInterval(GetRTime, 0);
+    </script>
+    <foreach name="list" item="vo" key="k">
+        <div class="dkk">
+            <div class="chanpin"><a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo[gid]))}"><img src="{$vo.original_img}" style="width:180px;heigth:180px" /></a></div>
+            <div class="wenzi">
+                <!-- <h1>【电饭锅】</h1> -->
+                <p>{$vo.fname}</p>
+                <p>试用数量：{$vo.sysl}份</p>
+                <p class="STYLE1" style="font-weight:bold">销售价：
+                    <s>￥{$vo.shop_price}</s>
+                </p>
+            </div>
+            <div class="shenq">已申请：{$vo.ysq}人</div>
+            <div class="anniu">
+                <a target="_blank" href="javascript:sq({$vo.fid},{$vo.gid});"><img id="img" src="__STATIC__/images/img/1_07.jpg" border="0" /></a>
+            </div>
+        </div>
+    </foreach>
+    <div class="divkk">
+        <div class="yy">
+            <p align="center" id="p"><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU1MTAzNjIzOQ==&scene=124#wechat_redirect"
+                    target="_blank"><img src="__STATIC__/images/img/1_03.jpg" border="0" style="width:100%;" /></a></p>
+            <p align="center"><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU1MTAzNjIzOQ==&scene=124#wechat_redirect"
+                    target="_blank"><img  src="__STATIC__/images/img/1_06.jpg" border="0" style="width:100%;" /></a></p>
+        </div>
+        <div class="zz">
+            <p style="margin-left:10%; margin-top:5%; font-size:1.3em;"><span class="STYLE2">《温馨提示》</span></p>
+            <ul>
+                <li>所有会员都可免费申请，申请成功后<span class="STYLE2">无需支付任何费用</span>；</li>
+                <li>活动结束后系统随机抽取申请会员，48小时内公布获取</br>
+                    试用名单，我们将会短信消息通知；</li>
+                <li>一个会员id仅限申请一份试用；</li>
+                <li>会员收到申请成功消息后即<span class="STYLE2">安排发货</span>。</li>
+
+            </ul>
+        </div>
+    </div>
+    <script>
+        var ndz = "{:U('User/add_address')}";
+        function sq(fid, gid) {
+            $.ajax({
+                type: "POST",
+                data:{ fid: fid, gid: gid },
+                url: "{:U('Mobile/Freetrial/info')}",
+                success: function (res) {
+                    if (res.msg) {
+                        window.location.href = res.url;
+                    }
+                    var g = res.goods;
+                    var s = res.spec;
+                    var a = res.address;
+                    var div = "<form id='sqform'><h1 class='title'>" + g.fname + "</h1>";
+                    div += "<input type='hidden' name='name' value='" + g.fname + "' />";
+                    div += "<input type='hidden' name='id' value='" + g.id + "' />";
+                    div += "<input type='hidden' name='fid' value='" + g.fid + "' />";
+                    div += "<input type='hidden' name='goodid' value='" + g.gid + "' />";
+                    $.each(s, function (k, v) {
+                        div += "<p class='p1'><span>" + k + "</span>";
+                        for (var i = 0; i < v.length; i++) {
+                            var c = "";
+                            if (i == 0) {
+                                div += "<input  type='hidden' name='spec[]' value='" + k + "：" + v[i]["item"] + "' />";
+                                c = "active";
+                            }
+                            div += "<a data-n='" + k + "' class='" + c + "' data-id='" + v[i]["item_id"] + "' data-item='" + v[i]["item"] + "' onclick='aClick(this)' >" + v[i]["item"] + "</a>";
+                        }
+                        div += "</p>";
+                    });
+                    var adds = "<select name='address'>";
+                    if (a.length > 0) {
+                        $.each(a, function (k, v) {
+                            var s = "";
+                            if (v.is_default == 1) {
+                                s = "selected=selected";
+                            }
+                            var myadd=v.province+v.city+v.district+v.twon+" "+v.address;
+                            adds += '<option value ="' + myadd + '|' + v.consignee + '|' + v.mobile + '" ' + s + '>' + myadd + '(' + v.consignee + ' ' + v.mobile + ')' + '</option>';
+                        });
+                        adds += "</select>";
+                        div += "<p class='p1'><span>收货地址</span>" + adds + "</p>";
+                        div += "<p><a class='btn' onclick='btnForm()'>立即申请</a></p>";
+                    } else {
+                        adds = "<a href='" + ndz + "'>添加新地址</a>";
+                        div += "<p class='p1'><span>收货地址</span>" + adds + "</p>";
+                    }
+
+                    div += "</form>";
+                    layer.open({
+                        type: 1
+                        , content: div
+                        , anim: 'up'
+                        , style: 'position:fixed; bottom:0; left:0; width: 100%; height: 180px; padding:0px 10px; border:none;'
+                    });
+                }
+            });
+            // $.post("{:U('Mobile/Freetrial/info')}", { fid: fid, gid: gid }, function (res) {
+
+
+            // }, "json");
+
+        }
+        function aClick(obj) {
+            var $this = $(obj);
+            $this.siblings().removeClass("active");
+            $this.addClass("active");
+            var data = $this.data("n") + "：" + $this.data("item");
+            $this.siblings("input").val(data);
+        }
+
+        function btnForm() {
+            var $form = $("#sqform");
+            $.post("{:U('Mobile/Freetrial/form')}", $form.serialize(), function (res) {
+                layer.open({
+                    content: res.msg
+                    , btn: ['确定']
+                    , yes: function (index) {
+                        window.location.href = res.url;
+                        layer.close(index);
+                    }
+                });
+            }, "json");
+        }
+    </script>
+    <!-- 微信浏览器 调用微信 分享js-->
+<if condition="$signPackage neq null">
+	<include file="public/wx_share"/>
+</if>
+<!-- 微信浏览器 调用微信 分享js  end-->
+</body>
+
+</html>

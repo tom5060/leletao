@@ -1,0 +1,809 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>首页</title>
+<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
+<script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
+<script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
+<script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+<script src="__PUBLIC__/js/global.js"></script>
+<script src="__PUBLIC__/js/mobile_common.js"></script>
+<!-- IE8及以下支持JSON -->
+<!--[if lt IE 9]>
+    <script src="https://g.alicdn.com/aliww/ww/json/json.js" charset="utf-8"></script>
+<![endif]-->
+<!-- WSDK-->
+<script src="https://g.alicdn.com/aliww/h5.openim.sdk/1.0.6/scripts/wsdk.js"></script>
+</head>
+<body>
+<div id="page" class="showpage">
+<div>
+<header id="header"> 
+<a href="{:U('Goods/categoryList')}" class="top_bt"></a><a id="search_text" class='user_btn'></a>
+<span href="javascript:void(0)" class="logo">{$tpshop_config['shop_info_store_name']}</span> 
+</header>
+
+<div id="scrollimg" class="scrollimg">
+  <div class="bd">
+   <ul>
+    <adv pid ="2" limit="5" item="v">
+        <li><a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> ><img src="{$v[ad_code]}" title="{$v[title]}"  width="100%" style="{$v[style]}"/></a></li>
+      </adv>                        
+     </ul>
+  </div>
+  <div class="hd">
+  <ul></ul>
+  </div>
+</div>
+<script type="text/javascript">
+  TouchSlide({ 
+    slideCell:"#scrollimg",
+    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+    mainCell:".bd ul", 
+    effect:"leftLoop", 
+    autoPage:true,//自动分页
+    autoPlay:true //自动播放
+  });
+</script> 
+
+<!-- <div id="fake-search" class="index_search">
+  <div class="index_search_mid">
+  <span><img src="__STATIC__/images/xin/icosousuo.png"></span>
+    <input  type="text" id="search_text" class="search_text" value="请输入您所搜索的商品"/>
+  </div>
+</div> -->
+
+<!-- <div class="entry-list clearfix">
+  <nav>
+    <ul>
+      <li>
+        <a href="{:U('Goods/categoryList')}">
+          <img alt="全部分类" src="__STATIC__/images/1440437165699930301.png" />
+          <span>全部分类</span>
+        </a>
+      </li>    
+      <li>
+        <a href="{:U('Activity/group_list')}">
+          <img alt="我的订单" src="__STATIC__/images/1440439318451279676.png" />
+          <span>团购</span>
+        </a>
+      </li>
+      <li>
+        <a href="{:U('Cart/cart')}">
+          <img alt="购物车" src="__STATIC__/images/1440439353048484531.png" />
+          <span>购物车</span>
+        </a>
+      </li>
+      <li>
+        <a href="{:U('User/index')}">
+          <img alt="个人中心" src="__STATIC__/images/1440439367001464442.png" />
+          <span>个人中心</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div> -->
+ 
+<!-- <div class="floor_images">
+    <dl>
+      <dt>
+        <adv  limit="1" item="v" pid="300">        
+            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
+            </a> 
+      </adv>              
+        </dt>    
+        <dd> 
+            <span class="Edge">
+          <adv  limit="1" item="v" pid="301">            
+                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
+                </a>
+               </adv>
+            </span> 
+            <span>
+          <adv  limit="1" item="v" pid="302">
+                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
+                </a>
+               </adv>           
+            </span> 
+        </dd>
+    </dl>
+    <ul>
+      <li class="brom">
+          <adv  limit="1" item="v" pid="303">
+                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
+                </a>
+               </adv>        
+        </li>
+      <li>
+          <adv  limit="1" item="v" pid="304">
+                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
+                </a>
+               </adv>        
+        </li>
+    </ul>
+</div> -->
+
+<!-- 新10大类目 -->
+<style type="text/css">
+  .new_leimu{background: #fff;width: 100%;margin:15px auto;overflow: hidden;border-bottom: 1px solid #F1F1F1;}
+  .new_leimu ul{width: 100%;overflow: hidden;margin: auto;}
+  .new_leimu ul li a{display: block;width: 20%;overflow: hidden;float: left;text-align: center;margin-top: 5px;}
+  .new_leimu ul li img{display: block;width: 50%;margin: auto;}
+  .new_leimu ul li span{height: 30px;line-height: 30px;color: rgb(97, 97, 97);font-family: 微软雅黑;font-size: 14px;}
+</style>
+<div class="new_leimu">
+<!-- {:U('Mobile/Index/index_leimu',array('cat_id' => 1))} -->
+<!-- 抢购列表{:U('Index/promoteList')} -->
+  <ul>
+    <li><a href="javascript:;"><img src="__STATIC__/new_index/index_icon_01.png" /><span>抢购</span></a></li>
+    <li><a href="{:U('Activity/group_list')}"><img src="__STATIC__/new_index/index_icon_02.png" /><span>拼团</span></a></li>
+    <li><a href="{:U('Mobile/Index/index_leimu',array('cat_id' => 1, 'cat_group' => 1))}"><img src="__STATIC__/new_index/index_icon_03.png" /><span>服饰</span></a></li>
+    <li><a href="{:U('Mobile/Index/index_leimu',array('cat_id' => 96, 'cat_group' => 2))}"><img src="__STATIC__/new_index/index_icon_04.png" /><span>鞋靴</span></a></li>
+    <li><a href="{:U('Mobile/Index/index_leimu',array('cat_id' => 244, 'cat_group' => 3))}"><img src="__STATIC__/new_index/index_icon_05.png" /><span>美妆</span></a></li>
+
+    <li><a href="{:U('Mobile/Index/index_leimu',array('cat_id' => 287, 'cat_group' => 4))}"><img src="__STATIC__/new_index/index_icon_06.png" /><span>食品</a></span></li>
+    <li><a href="{:U('Mobile/Index/index_leimu',array('cat_id' => 141, 'cat_group' => 5))}"><img src="__STATIC__/new_index/index_icon_07.png" /><span>箱包</span></a></li>
+    <li><a href="{:U('Mobile/Index/index_leimu',array('cat_id' => 335, 'cat_group' => 6))}"><img src="__STATIC__/new_index/index_icon_08.png" /><span>数码家电</span></a></li>
+    <li><a href="{:U('Mobile/Index/index_leimu',array('cat_id' => 177, 'cat_group' => 7))}"><img src="__STATIC__/new_index/index_icon_09.png" /><span>家居家纺</span></a></li>
+    <li><a href="{:U('Mobile/Index/index_leimu',array('cat_id' => 358, 'cat_group' => 8))}"><img src="__STATIC__/new_index/index_icon_10.png" /><span>母婴产品</span></a></li>
+  </ul>
+</div>
+<!-- 新10大类目end -->
+
+<script>
+  // 倒计时
+  function GetRTime2(){
+    //var text = GetRTime('2016/02/27 17:34:00');
+     <tpshop sql="select * from __PREFIX__goods as g inner join __PREFIX__flash_sale as f on g.goods_id = f.goods_id limit 3" key="k" item='v'>
+    var text{$v[goods_id]} = GetRTimeMy('{$v.end_time|date="Y/m/d H:i:s",###}');
+    
+    if (typeof(text{$v[goods_id]}) == "undefined") 
+        $("#surplus_text{$v[goods_id]}").text('活动已结束');
+    else      
+        $("#surplus_text{$v[goods_id]}").html(text{$v[goods_id]});
+      
+     </tpshop>
+  }
+  setInterval(GetRTime2,1000);
+</script>
+
+<!-- 现金卷 -->
+<style type="text/css">
+  .xianjinjuan{width: 100%;overflow: hidden;margin: auto;}
+  .xianjinjuan li{vertical-align: middle;}
+  .xianjinjuan li a{display: block;width: 33%;overflow: hidden;float: left;text-align: center;margin-top: 5px;}
+  .xianjinjuan li img{display: block;width: 90%;margin: auto;}
+</style>
+<div class="xianjinjuan">
+  <li><a href="http://www.leletao88.com/index.php?m=Mobile&c=User&a=send_online&cid=34"><img src="__STATIC__/new_index/5xianjin.png" /></a></li>
+  <li><a href="http://www.leletao88.com/index.php?m=Mobile&c=User&a=send_online&cid=35"><img src="__STATIC__/new_index/10xianjin.png" /></a></li>
+  <li><a href="http://www.leletao88.com/index.php?m=Mobile&c=User&a=send_online&cid=36"><img src="__STATIC__/new_index/30xianjin.png" /></a></li>
+</div>
+
+<!-- 优惠卷 -->
+<style type="text/css">
+  .youhuijuan{width: 95%;height: auto;margin: 10px auto;overflow: hidden;}
+  .youhuijuan li{width: 48%;}
+  .youhuijuan li img{width: 100%;}
+</style>
+<div class="youhuijuan">
+  <li style="float:left"><a href="{:U('Mobile/User/prize')}"><img src="__STATIC__/new_index/dazhuanpan.png" /></a></li>
+  <li style="float:right"><a href="{:U('Mobile/Index/all_nine_goods')}"><img src="__STATIC__/new_index/99zhuanqu.png" /></a></li>
+</div>
+
+<section class="index_floor_lou" style="margin-top:0px;">
+    <div class="floor_body">
+      <h2>
+        <img src="__STATIC__/images/index_time.png" width="28" height="28" style="padding-bottom:4px;" /> 限时秒杀
+      </h2>
+
+      <div class="showBox">
+          <div class="timer_box" id="surplus_text{$v[goods_id]}"></div>
+          <!-- <div class="more_my"><a href="{:U('Index/promoteList')}">淘淘 <font><img src="__STATIC__/images/index_more.png" /></font></a></div>         -->
+      </div>
+
+      <div id="scroll_promotion">
+          <ul>
+           <tpshop sql="select * from __PREFIX__goods as g inner join __PREFIX__flash_sale as f on g.goods_id = f.goods_id limit 3" key="key" item='val'>
+            <li>
+              <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$val.goods_name}"></a>
+              <div class="index_pro">
+                <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$val[goods_id]))}" title="{$val.goods_name}"> 
+                  <div class="products_kuang">
+                    <img src="{$val.goods_id|goods_thum_images=400,400}">
+                  </div>
+                  <div class="goods_name">{$val.goods_name}</div>
+                </a>
+                  <?php
+                    $goods_data = M('goods')->where('goods_id',$val['goods_id'])->field('shop_price')->find();      
+                    $spare = $goods_data['shop_price'] - $val['price'];            
+                  ?>
+                  <div class="price">
+                      <!-- <a href="javascript:AjaxAddCart({$val[goods_id]},1,0);" class="btns">
+                      <img src="__STATIC__/images/index_flow.png">
+                      </a> -->
+                      <font style="float:right;font-size:12px;padding-right:5px;margin-top:10px;color:#999999;">省￥{$spare}</font>
+                    <span class="price_pro">￥{$val.price}</span>
+                  </div>
+        </div>
+            </li>
+            </tpshop>
+          </ul>
+      </div>
+  </div>
+</section>
+
+<!-- FASHION 搭配区 -->
+<style type="text/css">
+  .fashion{background: #fff;width: 100%;margin:0px auto;overflow: hidden;border-bottom: 1px solid #F1F1F1;}
+  .fashion h2{color: #ff0000;font-size: 26px;text-align: center;font-weight: bold;}
+  .fashion p{color: #ff0000;font-size: 14px;text-align: center;}
+  .fashion ul{width: 100%;overflow: hidden;margin: auto;}
+  .fashion ul li a{display: block;width: 25%;overflow: hidden;float: left;text-align: center;margin-top: 5px;position: relative;}
+  .fashion ul li img{display: block;width: 96%;margin: auto;}
+  .fashion ul li p{width: 96%;height: 30px;line-height: 30px;color: #fff;font-family: 微软雅黑;font-size: 14px;position:absolute;z-index: 999;bottom: 0px;background: rgba(0, 0, 0, 0.55);margin: auto;margin-left: 2px;text-align: center;}
+</style>
+<!-- <div class="fashion">
+  <h2>FASHION 搭配区</h2>
+  <p>今夏流行款</p>
+  <ul>
+    <li><a href="#"><img src="__STATIC__/new_index/fashion_01.png" /><p>职业专场</p></a></li>
+    <li><a href="#"><img src="__STATIC__/new_index/fashion_02.png" /><p>休闲专场</p></a></li>
+    <li><a href="#"><img src="__STATIC__/new_index/fashion_03.png" /><p>约会专场</p></a></li>
+    <li><a href="#"><img src="__STATIC__/new_index/fashion_04.png" /><p>younger专场</p></a></li>
+  </ul>
+</div> -->
+<!-- FASHION 搭配区end -->
+
+<!-- BRANDS 品牌团 -->
+<style type="text/css">
+  .brands{background: #fff;width: 96%;margin:35px auto;overflow: hidden;}
+  .brands h2{color: #ff0000;font-size: 26px;text-align: center;font-weight: bold;}
+  .brands p{color: #ff0000;font-size: 14px;text-align: center;}
+  .brands ul{width: 100%;overflow: hidden;margin: auto;}
+  .brands ul .brand_name a{width:22%;border: 0px;background: #ff0000;text-align: center;display: block;overflow: hidden;float: left;color: #fff;line-height: 115px;}
+  .brands ul li a{height:115px;display: block;width: 35.5%;overflow: hidden;float: left;text-align: center;position: relative;border:1px solid #F1F1F1;margin: 3px;}
+  .brands ul li img{display: block;margin:3px auto;width: 100%;}
+  .brands ul li p{width: 35%;height: 26px;line-height: 26px;color: #ff0000;font-family: 微软雅黑;font-size: 14px;position:absolute;z-index: 999;bottom: 0px;background: rgba(255, 255, 255, 0.55);margin: auto;margin-left: 2px;text-align: center;}
+</style>
+<!-- <div class="brands">
+  <h2>BRANDS 品牌团</h2>
+  <p>合作品牌团</p> -->
+
+  <?php
+    // $hanyi = M('goods')->where('brand_id', '223')->limit(2)->select();
+  ?>
+  <!-- <ul>  
+    <li class="brand_name"><a href="{:U('Mobile/Index/index_brand',array('brand_id' => 223))}">芙号</a></li>
+    <volist name="hanyi" id="vo">
+      <li><a href="{:U('Mobile/Goods/goodsInfo',array('id' => $vo['goods_id']))}"><img src="{$vo.original_img}" /><p>￥{$vo.shop_price}</p></a></li>
+    </volist>
+  </ul> -->
+
+  <?php
+    // $hanyi = M('goods')->where('brand_id', '224')->limit(2)->select();
+  ?>
+  <!-- <ul>
+    <volist name="hanyi" id="vo">
+      <li><a href="{:U('Mobile/Goods/goodsInfo',array('id' => $vo['goods_id']))}"><img src="{$vo.original_img}" /><p>￥{$vo.shop_price}</p></a></li>
+    </volist>
+    <li class="brand_name"><a href="{:U('Mobile/Index/index_brand',array('brand_id' => 224))}">环球</a></li>
+  </ul> -->
+
+  <?php
+    // $hanyi = M('goods')->where('brand_id', '225')->limit(2)->select();
+  ?>
+  <!-- <ul>
+    <li class="brand_name"><a href="{:U('Mobile/Index/index_brand',array('brand_id' => 225))}">飞高</a></li>
+    <volist name="hanyi" id="vo">
+      <li><a href="{:U('Mobile/Goods/goodsInfo',array('id' => $vo['goods_id']))}"><img src="{$vo.original_img}" /><p>￥{$vo.shop_price}</p></a></li>
+    </volist>
+  </ul> -->
+
+  <?php
+    // $hanyi = M('goods')->where('brand_id', '172')->limit(2)->select();
+  ?>
+  <!-- <ul>
+    <volist name="hanyi" id="vo">
+      <li><a href="{:U('Mobile/Goods/goodsInfo',array('id' => $vo['goods_id']))}"><img src="{$vo.original_img}" /><p>￥{$vo.shop_price}</p></a></li>
+    </volist>
+    <li class="brand_name"><a href="{:U('Mobile/Index/index_brand',array('brand_id' => 172))}">维·丹诺</a></li>
+  </ul> -->
+
+  <?php
+    // $hanyi = M('goods')->where('brand_id', '121')->limit(2)->select();
+  ?>
+  <!-- <ul>
+    <li class="brand_name"><a href="{:U('Mobile/Index/index_brand',array('brand_id' => 121))}">百年纪念</a></li>
+    <volist name="hanyi" id="vo">
+      <li><a href="{:U('Mobile/Goods/goodsInfo',array('id' => $vo['goods_id']))}"><img src="{$vo.original_img}" /><p>￥{$vo.shop_price}</p></a></li>
+    </volist>
+  </ul> -->
+
+  <?php
+    // $hanyi = M('goods')->where('brand_id', '111')->limit(2)->select();
+  ?>
+  <!-- <ul>
+    <volist name="hanyi" id="vo">
+      <li><a href="{:U('Mobile/Goods/goodsInfo',array('id' => $vo['goods_id']))}"><img src="{$vo.original_img}" /><p>￥{$vo.shop_price}</p></a></li>
+    </volist>
+    <li class="brand_name"><a href="{:U('Mobile/Index/index_brand',array('brand_id' => 111))}">鸿星尔克</a></li>
+  </ul>
+
+</div> -->
+<!-- BRANDS 品牌团end -->
+  
+<!-- <div class="floor_images">
+    <dl>
+        <dt>
+          <adv  limit="1" item="v" pid="305">
+            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
+            </a>
+           </adv>        
+        </dt>
+        <dd> 
+        <span class="Edge">
+          <adv  limit="1" item="v" pid="306">
+            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
+            </a>
+           </adv>        
+        </span> 
+        <span>
+          <adv  limit="1" item="v" pid="307">
+            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
+            </a>
+           </adv>        
+        </span> 
+        </dd> 
+      </dl>
+  <strong>
+            <adv  limit="1" item="v" pid="308">
+            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
+            </a>
+           </adv>
+    </strong>
+</div> -->
+ 
+<!-- <section class="index_floor">
+  <div class="floor_body1">
+    <h2><em></em>精品推荐
+        <div class="geng"> <a href="{:U('Goods/search',array('qtype'=>'is_recommend'))}">更多</a> <span></span></div>
+    </h2>
+    <div id="scroll_best" class="scroll_hot">
+      <div class="bd">
+        <ul>
+        <assign name="fl" value="1"/>
+         <tpshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
+          <li>
+            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+             <div class="index_pro"> 
+                <div class="products_kuang">
+                  <img src="{$v.goods_id|goods_thum_images=400,400}"></div>
+                <div class="goods_name">{$v.goods_name}</div>
+                <div class="price">
+                   <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
+                      <img src="__STATIC__/images/index_flow.png">
+                   </a>
+                   <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span>
+                </div>
+              </div>
+            </a>
+           </li>
+           <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul><ul></if>
+           </tpshop>
+           </ul>
+       </div>
+       <div class="hd">
+          <ul></ul>
+       </div>
+      </div>
+    </div>
+  </section> -->
+
+  <script type="text/javascript">
+    TouchSlide({ 
+      slideCell:"#scroll_best",
+      titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+      effect:"leftLoop", 
+      autoPage:true, //自动分页
+      //switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+    });
+  </script>
+
+<!-- <section class="index_floor">
+  <div class="floor_body1" >
+    <h2>
+      <em></em>
+      新品上市
+        <div class="geng"><a href="{:U('Goods/search',array('qtype'=>'is_new'))}" >更多</a> <span></span></div>
+    </h2>
+    <div id="scroll_new" class="scroll_hot">
+      <div class="bd">
+        <ul>
+        <assign name="fl" value="1"/>
+         <tpshop sql="select * from __PREFIX__goods where is_new=1 order by sort limit 9" item="v" key="k">
+          <li>
+            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+             <div class="index_pro"> 
+                <div class="products_kuang">
+                  <img src="{$v.goods_id|goods_thum_images=400,400}"></div>
+                <div class="goods_name">{$v.goods_name}</div>
+                <div class="price">
+                   <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
+                      <img src="__STATIC__/images/index_flow.png">
+                   </a>
+                   <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span>
+                </div>
+              </div>
+            </a>
+           </li>
+           <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul><ul></if>
+           </tpshop></ul>
+        </div>
+        <div class="hd">
+          <ul></ul>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <script type="text/javascript">
+    TouchSlide({ 
+      slideCell:"#scroll_new",
+      titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+      effect:"leftLoop", 
+      autoPage:true, //自动分页
+      //switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+    });
+  </script>
+
+<!-- <section class="index_floor">
+  <div class="floor_body1" >
+    <h2><em></em>热销商品
+        <div class="geng"><a href="{:U('Goods/search',array('qtype'=>'is_hot'))}" >更多</a> <span></span></div>
+    </h2>
+    <div id="scroll_hot" class="scroll_hot">
+      <div class="bd">
+        <ul>
+        <assign name="fl" value="1"/>
+         <tpshop sql="select * from __PREFIX__goods where is_hot=1 order by sort limit 9" item="v" key="k">
+          <li>
+            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+             <div class="index_pro"> 
+                <div class="products_kuang">
+                  <img src="{$v.goods_id|goods_thum_images=400,400}"></div>
+                <div class="goods_name">{$v.goods_name}</div>
+                <div class="price">
+                   <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
+                      <img src="__STATIC__/images/index_flow.png">
+                   </a>
+                   <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span>
+                </div>
+              </div>
+            </a>
+           </li>
+           <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul><ul></if>
+           </tpshop></ul>
+          </div>
+        <div class="hd">
+          <ul></ul>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <script type="text/javascript">
+    TouchSlide({ 
+      slideCell:"#scroll_hot",
+      titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+      effect:"leftLoop", 
+      autoPage:true, //自动分页
+      //switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+    });
+  </script>
+ 
+ 
+<!-- <section class="index_floor_lou">
+    <div class="floor_body ">
+        <h2>
+            <em></em><div class="geng"><a href="javascript:void(0);" >更多</a> <span></span></div>
+         </h2>
+        <ul>
+         </ul>
+    </div>
+</section>  -->
+ 
+<!-- <div id="index_banner" class="index_banner">
+  <div class="bd">
+    <ul>
+          <adv  limit="2" item="v" pid="309">
+          <li>
+            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
+            </a>
+            </li>
+           </adv>        
+      </ul>
+  </div>
+  <div class="hd">
+    <ul>         
+        </ul>
+  </div>
+</div> -->
+<script type="text/javascript">
+  TouchSlide({ 
+    slideCell:"#index_banner",
+    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+    mainCell:".bd ul", 
+    effect:"leftLoop", 
+    autoPage:true,//自动分页
+    autoPlay:true //自动播放
+  });
+</script>
+   
+<script type="text/javascript">
+// 拖动加载
+  var range = 50;             //距下边界长度/单位px  
+  var maxnum = 20;            //设置加载最多次数  
+  var num = 1;  
+$(function(){
+  getGoodsList(1);
+  //$('#J_ItemList').more({'address': url});
+  
+  
+  var totalheight = 0;   
+  $(window).scroll(function(){  
+      var srollPos = $(window).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)  
+        
+      //console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop());  
+      //console.log("页面的文档高度 ："+$(document).height());  
+      //console.log('浏览器的高度：'+$(window).height());  
+        
+      totalheight = parseFloat($(window).height()) + parseFloat(srollPos);  
+      if(($(document).height()-range) <= totalheight  && num != maxnum) {   
+          var n=num+=1;       
+          getGoodsList(n);
+          return;
+          //num++;  
+      }  
+  });  
+  // 拖动加载end
+  
+});
+
+var page = 1;
+function getGoodsList(n){
+  $('.get_more').show();
+  $.ajax({
+    type : "get",
+    url:"/index.php?m=Mobile&c=Index&a=ajaxGetMore&p="+n,
+    success: function(data)
+    {
+      if(data){
+        $("#J_ItemList>ul").append(data);
+        //page++;
+        $('.get_more').hide();
+      }else{
+        $('.get_more').hide();
+        $('#getmore').remove();
+      }
+    }
+  }); 
+}
+</script> 
+
+<!-- 51特卖 -->
+<style type="text/css">
+  /*.temai{background: #fff;width: 98%;margin: auto;overflow: hidden;padding:10px;}
+  .temai ul{width: 98%;margin: 0 auto;}
+  .temai ul li{width: 20.5%;float: left;margin-right: 5%;}
+  .temai ul li img{width: 100%;}*/
+</style>
+<!-- <div class="temai">
+  <ul>
+    <li><a href="http://www.leletao88.com/Mobile/Activity/brand_up.html"><img src="__STATIC__/51tuan/tu1.png" /></a></li>
+    <li><a href="http://www.leletao88.com/Mobile/Activity/snap_up.html"><img src="__STATIC__/51tuan/tu2.png" /></a></li>
+    <li><a href="http://www.leletao88.com/Mobile/Activity/group_list.html"><img src="__STATIC__/51tuan/tu3.png" /></a></li>
+    <li style="margin-right:0%;"><a href="http://www.leletao88.com/Mobile/Activity/brand_up.html"><img src="__STATIC__/51tuan/tu4.png" /></a></li>
+  </ul>
+</div>  -->
+<!-- 51特卖 end -->
+
+<!-- 6大类目 -->
+<style type="text/css">
+  /*.big_leimu{background: #fff;width: 98%;margin: auto;overflow: hidden;padding:10px;}
+  .big_leimu ul{width: 98%;margin: 0 auto;}
+  .big_leimu ul li{width: 30%;float: left;margin-top: 15px;margin-right: 10px;}
+  .big_leimu ul li img{width: 100%;}*/
+</style>
+<!-- <div class="big_leimu">
+  <ul>
+
+    <li><a href="http://www.leletao88.com/Mobile/Goods/goodsList/id/1.html"><img src="__STATIC__/51tuan/fushi.png" /></a></li>
+
+    <li><a href="http://www.leletao88.com/Mobile/Goods/goodsList/id/96.html"><img src="__STATIC__/51tuan/xiexie.png" /></a></li>
+
+    <li style="margin-right: 0px;"><a href="http://www.leletao88.com/Mobile/Goods/goodsList/id/141.html"><img src="__STATIC__/51tuan/xiangbao.png" /></a></li>
+
+    <li><a href="http://www.leletao88.com/Mobile/Goods/goodsList/id/177.html"><img src="__STATIC__/51tuan/jiaju.png" /></a></li>
+
+    <li><a href="http://www.leletao88.com/Mobile/Goods/goodsList/id/244.html"><img src="__STATIC__/51tuan/meizhuang.png" /></a></li>
+
+    <li style="margin-right: 0px;"><a href="http://www.leletao88.com/Mobile/Goods/goodsList/id/178.html"><img src="__STATIC__/51tuan/jiadian.png" /></a></li>
+
+  </ul>
+</div> -->
+<!-- 6大类目 end -->
+
+<!-- 品牌团 -->
+
+<style type="text/css">
+  /*.tuan51{background: #fff;width: 98%;margin: auto;overflow: hidden;}
+  .tuan51 .li_box{margin:15px 0px 0px 0px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;}
+  .tuan51 .li_box img{width: 100%;}
+  .tuan51 h2{text-align: center;margin-top: 5px;margin-bottom: 5px;color: #f00;font-weight: normal;}*/
+</style>
+
+<!-- <div class="tuan51">
+  <h2>品牌团</h2>
+
+  
+    <li class="li_box">
+      <a href="http://www.leletao88.com/Mobile/Index/department.html">
+        <img src="__STATIC__/51tuan/1.jpg" />
+      </a>
+    </li>
+
+  
+    <li class="li_box">
+      <a href="http://www.leletao88.com/Mobile/Index/tianbeier.html">
+        <img src="__STATIC__/51tuan/3.jpg" />
+      </a>
+    </li>
+
+  
+    <li class="li_box">
+      <a href="http://www.leletao88.com/Mobile/Index/manmeiqi.html">
+        <img src="__STATIC__/51tuan/4.jpg" />
+      </a>
+    </li>
+
+  
+    <li class="li_box">
+      <a href="http://www.leletao88.com/Mobile/Index/meizhuang.html">
+        <img src="__STATIC__/51tuan/5.jpg" />
+      </a>
+    </li>
+
+  
+    <li class="li_box">
+      <a href="http://www.leletao88.com/Mobile/Index/dafuni.html">
+        <img src="__STATIC__/51tuan/6.jpg" />
+      </a>
+    </li>
+
+  
+    <li class="li_box">
+      <a href="http://www.leletao88.com/Mobile/Index/jiadian.html">
+        <img src="__STATIC__/51tuan/7.jpg" />
+      </a>
+    </li>
+
+</div> -->
+<!-- 品牌团 end -->
+
+<div class="floor_body2" >
+  <h2>————&nbsp;猜你喜欢&nbsp;————</h2>
+  <div id="J_ItemList">
+    <ul class="product single_item info">
+    </ul>
+    <a href="javascript:;" class="get_more" style="text-align:center; display:block;"> 
+    <img src='__STATIC__/images/category/loader.gif' width="12" height="12"> </a> 
+  </div>
+  <div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem;">
+    <a href="javascript:void(0)" onClick="getGoodsList()">点击加载更多</a>
+  </div>
+</div>
+<include file="public/footer"/>
+<script>
+function goTop(){
+  $('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="__STATIC__/images/topup.png"></a> 
+</div>
+<div id="J_demo" style="display:none"></div>
+ <div id="search_hide" class="search_hide">
+ <h2> <span class="close"><img src="__STATIC__/images/close.png"></span>关键搜索</h2>
+ <div id="mallSearch" class="search_mid">
+        <div id="search_tips" style="display:none;"></div>
+          <ul class="search-type">
+            <li  class="cur"  num="0">宝贝</li>
+            <!--<li  num="1">店铺</li>-->
+          </ul> 
+          <div class="searchdotm"> 
+          <form class="set_ip"name="sourch_form" id="sourch_form" method="post" action="{:U('Goods/search')}">
+              <div class="mallSearch-input">
+                <div id="s-combobox-135">
+                    <input class="s-combobox-input" name="q" id="q"  placeholder="请输入关键词"  type="text" value="<?php echo I('q'); ?>" />
+                </div>                                                
+                <input type="button" value="" class="button"  onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();" />
+              </div>
+          </form>
+         </div> 
+        </div>
+    <!--
+    <div class="search_body">
+    <div class="search_box">
+    <form action="search.php" method="post" id="searchForm" name="searchForm">
+    <div>
+    <select id='search_type' name="search_type" style="width:15%;">
+      <option value='search'>宝贝</option>
+      <option value='stores'>店铺</option>
+    </select>
+         <input class="text" type="search" name="keywords" id="keywordBox" autofocus>
+         <button type="submit" value="搜 索" ></button>
+    </div>
+    </form>
+      </div>
+    </div>
+       -->      
+
+
+
+      <section class="mix_recently_search"><h3>热门搜索</h3>
+       <ul>
+            <foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+               <li><a href="{:U('Goods/search',array('q'=>$wd))}" <if condition="$k eq 0">class="ht"</if>>{$wd}</a></li>
+            </foreach>         
+        </ul>
+        </section>
+        
+    </div>
+                                             
+</div>
+<include file="public/footer_nav"/>
+ 
+<script type="text/javascript">
+$(function() {
+    $('#search_text').click(function(){
+        $(".showpage").children('div').hide();
+        $("#search_hide").css('position','fixed').css('top','0px').css('width','100%').css('z-index','999').show();
+    })
+    $('#get_search_box').click(function(){
+        $(".showpage").children('div').hide();
+        $("#search_hide").css('position','fixed').css('top','0px').css('width','100%').css('z-index','999').show();
+    })
+    $("#search_hide .close").click(function(){
+        $(".showpage").children('div').show();
+        $("#search_hide").hide();
+    })
+});
+</script>
+<script>
+$('.search-type li').click(function() {
+    $(this).addClass('cur').siblings().removeClass('cur');
+    $('#searchtype').val($(this).attr('num'));
+});
+$('#searchtype').val($(this).attr('0'));
+</script>
+<script src="__PUBLIC__/js/jqueryUrlGet.js"></script><!--获取get参数插件-->
+<script> set_first_leader(); //设置推荐人 </script>
+</body>
+</html>

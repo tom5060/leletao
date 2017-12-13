@@ -1,0 +1,78 @@
+<include file="public/layout" />
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+
+<body style="background-color: #FFF; overflow: auto;">
+    <div class="page">
+        <div class="fixed-bar">
+            <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+                <div class="subject">
+                    <h3>免费试用 - 编辑</h3>
+                    <h5>网站系统免费试用活动管理</h5>
+                </div>
+            </div>
+        </div>
+        <form class="form-horizontal" id="handleposition" method="post" action="{:url('Freetrial/Form')}">
+            <input type="hidden" name="type" value="{$type}">
+            <input type="hidden" name="id" value="{$info.id}">
+            <div class="ncap-form-default">
+                <dl class="row">
+                    <dt class="tit">
+                        <label><em>*</em>活动标题</label>
+                    </dt>
+                    <dd class="opt">
+                        <input type="text" name="title" id="title" value="{$info.title}" class="input-txt">
+                        <p class="notic">请填写活动标题</p>
+                    </dd>
+                </dl>
+                <dl class="row">
+                    <dt class="tit">
+                        <label><em>*</em>开始时间</label>
+                    </dt>
+                    <dd class="opt">
+                        <input type="text" id="start_time" name="start_time" value="{$info.start_time ?? date(" Y-m-d 00:00:00 ")}" class="input-txt">
+                        <p class="notic">开始时间</p>
+                    </dd>
+                </dl>
+                <dl class="row">
+                    <dt class="tit">
+                        <label><em>*</em>结束时间</label>
+                    </dt>
+                    <dd class="opt">
+                        <input type="text" id="end_time" name="end_time" value="{$info.end_time ?? date(" Y-m-d 00:00:00 ",strtotime("+1 day
+                            "))}" class="input-txt">
+                        <p class="notic">结束时间</p>
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="tit">
+                        <label>活动介绍</label>
+                    </dt>
+                    <dd class="opt">
+                        <textarea placeholder="请输入活动介绍" name="description" rows="6" class="tarea">{$info.description}</textarea>
+                        <p class="notic">活动描述介绍</p>
+                    </dd>
+                </dl>
+                <div class="bot"><a onclick="adsubmit()" class="ncap-btn-big ncap-btn-green">确认提交</a></div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#start_time').layDate();
+            $('#end_time').layDate();
+        })
+        function adsubmit() {
+            if ($('#title').val() == '') {
+                layer.msg('抢购标题不能为空'); return;
+            }
+            if ($('#price').val() == '') {
+                layer.msg('抢购价格不能为空'); return;
+            }
+
+            $('#handleposition').submit();
+        }
+    </script>
+</body>
+
+</html>

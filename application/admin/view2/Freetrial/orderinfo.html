@@ -1,0 +1,217 @@
+<include file="public/layout" />
+<style>
+    .ncm-goods-gift {
+        text-align: left;
+    }
+
+    .ncm-goods-gift ul {
+        display: inline-block;
+        font-size: 0;
+        vertical-align: middle;
+    }
+
+    .ncm-goods-gift li {
+        display: inline-block;
+        letter-spacing: normal;
+        margin-right: 4px;
+        vertical-align: top;
+        word-spacing: normal;
+    }
+
+    .ncm-goods-gift li a {
+        background-color: #fff;
+        display: table-cell;
+        height: 30px;
+        line-height: 0;
+        overflow: hidden;
+        text-align: center;
+        vertical-align: middle;
+        width: 30px;
+    }
+
+    .ncm-goods-gift li a img {
+        max-height: 30px;
+        max-width: 30px;
+    }
+
+    a.green {
+
+        background: #fff none repeat scroll 0 0;
+        border: 1px solid #f5f5f5;
+        border-radius: 4px;
+        color: #999;
+        cursor: pointer !important;
+        display: inline-block;
+        font-size: 12px;
+        font-weight: normal;
+        height: 20px;
+        letter-spacing: normal;
+        line-height: 20px;
+        margin: 0 5px 0 0;
+        padding: 1px 6px;
+        vertical-align: top;
+    }
+
+    a.green:hover {
+        color: #FFF;
+        background-color: #1BBC9D;
+        border-color: #16A086;
+    }
+
+    .ncap-order-style .ncap-order-details {
+        margin: 20px auto;
+    }
+
+    .contact-info h3,
+    .contact-info .form_class {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .form_class i.fa {
+        vertical-align: text-bottom;
+    }
+</style>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.go(-1)" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>订单发货</h3>
+                <h5>订单发货编辑</h5>
+            </div>
+            <div class="subject" style="width:62%">
+                <a href="{:U('Order/order_print',array('order_id'=>$order['order_id'],'template'=>'picking'))}" style="float:right;margin-right:10px"
+                    class="ncap-btn-big ncap-btn-green"><i class="fa fa-print"></i>打印配货单</a>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="ncap-order-style">
+        <div class="titile">
+            <h3></h3>
+        </div>
+        <form id="delivery-form" action="{:U('Freetrial/orderForm')}" method="post">
+            <div class="ncap-order-details">
+                <div class="tabs-panels">
+                    <div class="misc-info">
+                        <h3>基本信息</h3>
+                        <dl>
+                            <dt>订单号:</dt>
+                            <dd>{$order.orderid}</dd>
+                            <dt>下单时间:</dt>
+                            <dd>{$order.addtime}</dd>
+
+                        </dl>
+                    </div>
+
+                    <div class="addr-note">
+                        <h4>收货信息:</h4>
+                        <dl>
+                            <dt>收货人:</dt>
+                            <dd>{$order["address"][1]}</dd>
+                        </dl>
+                        <dl>
+                            <dt>收货地址:</dt>
+                            <dd>{$order["address"][0]}</dd>
+                        </dl>
+                        <dl>
+                            <dt>电话:</dt>
+                            <dd>{$order["address"][2]}</dd>
+                        </dl>
+                    </div>
+
+
+                    <div class="goods-info">
+                        <h4>商品信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="2" style="width:70%">商品</th>
+                                    <th>规格属性</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="w30">
+                                        <div class="goods-thumb"><a href="{:U('Goods/addEditGoods',array('id'=>$good[goods_id]))}" target="_blank"><img alt="" src="{$good['goods_id']|goods_thum_images=200,200}" /> </a></div>
+                                    </td>
+                                    <td style="text-align: left;"><a href="{:U('Goods/addEditGoods',array('id'=>$good[goods_id]))}" target="_blank">{$order.name}</a><br/></td>
+                                    <td class="w80">{$order.spec}</td>
+
+                                </tr>
+                        </table>
+                    </div>
+                    <div class="contact-info" style="margin-top:10px;">
+                        <h3>发货</h3>
+                        <dl class="row">
+                            <dt class="tit">配送方式</dt>
+                            <dd class="opt" style="margin-left:10px">
+                                <?php
+                                            
+                                                              $plugin_list = M('plugin')->where('type' , 'shipping')->field('code,name')->select();
+                                                            ?>
+                                    <select name="kuaidiname">
+                                                              <volist name="plugin_list" id="r">
+                                                              <option value="{$r.code}|{$r.name}" <if condition="$orderkuaidiname eq $r.name">selected=selected</if> >{$r.name}</option>
+                                                              </volist>
+                                                            </select>
+                            </dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="tit">快递单号</dt>
+                            <dd class="opt" style="margin-left:10px"><input class="input-txt" name="kuaidi" id="invoice_no" value="{$order.kuaidi}"></dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="tit">
+                                <label for="note">备注</label>
+                            </dt>
+                            <dd class="opt" style="margin-left:10px">
+                                <input type="hidden" name="uid" value="{$order.uid}">
+                                <input type="hidden" name="id" value="{$order.id}">
+                                <input type="hidden" name="fid" value="{$order.fid}">
+                                <textarea id="note" name="bz" style="width:600px" rows="6" placeholder="请输入操作备注" class="tarea">{$order.bz}</textarea>
+                            </dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="tit">
+                                <label for="note">可执行操作</label>
+                            </dt>
+                            <dd class="opt" style="margin-left:10px">
+
+                                
+                                <if condition="$order.zt eq -1 or $order.zt eq 1">
+                                    <a class="ncap-btn-big ncap-btn-green" onclick="dosubmit()">确认发货</a>
+                                </if>
+                                <if condition="$order.zt eq -1">
+                                    <a class="ncap-btn-big ncap-btn-green" onclick="sqbtg({$order['id']},{$order['fid']})">申请不通过</a>
+                                </if>
+                            </dd>
+                        </dl>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script type="text/javascript">
+    function dosubmit() {
+        if ($('#invoice_no').val() == '') {
+            layer.alert('请输入配送单号', { icon: 2 });  // alert('请输入配送单号');
+            return;
+        }
+        $('#delivery-form').submit();
+    }
+    function sqbtg(id, fid) {
+        $.post("{:U('Freetrial/orderJJ')}", { "id": id, "fid": fid }, function (res) {
+            layer.msg(res.msg);
+            window.location.href = res.url;
+        }, "json");
+    }
+
+</script>
+</body>
+
+</html>

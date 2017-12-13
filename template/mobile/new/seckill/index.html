@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>秒杀</title>
+    <link rel="stylesheet" type="text/css" href="/public/swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/public/layer_mobile/need/layer.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/seckill/css/seckill.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+    <script type="text/javascript" src="/public/js/fontSet.js"></script>
+    <script type="text/javascript" src="/public/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/public/layer_mobile/layer.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <header id="header">
+        <a href="{:U('Goods/categoryList')}" class="top_bt"></a><a id="search_text" class='user_btn'></a>
+        <span href="javascript:void(0)" class="logo">{$tpshop_config['shop_info_store_name']}</span>
+    </header>
+    <div class="slide">
+        <div class="swiper-container-slide">
+            <div class="swiper-wrapper slide-list">
+                <!-- <div class="swiper-slide"><img src="__STATIC__/seckill/images/img2.png" alt=""></div> -->
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    <div class="qiangtou-countdown">
+        <div class="swiper-countdown">
+            <div class="swiper-wrapper qiangtou-date">
+              <!-- <div class="swiper-slide">08:00<p>抢购中</p></div> -->
+
+            </div>
+        </div>
+    </div>
+    <div class="pin-tips">
+        <img src="__STATIC__/seckill/images/img3.png" alt="">
+        <div class="time-sum" >
+            <i id="divdown1"><span>4</span><span>4</span>分<span>3</span><span>6</span>秒</i>
+            <i id="divdown2">123</i>
+        </div>
+    </div>
+    <div class="qiangtou-list">
+        <ul>
+            <!-- <li>
+                <a href="#">
+                <div class="left-img"><img src="__STATIC__/spellgroup/images/img6.jpg" alt=""></div>
+                <div class="cp-info">
+                    <p class="cp-info-title">德国芭乐雅Balea玻尿酸原液德国芭乐雅Balea玻尿酸原液德国芭乐雅Balea玻尿酸原液 平衡亮肤精华7ml德国芭乐雅Balea玻尿酸原液 平衡亮肤精华7ml</p>
+                    <p class="cp-price">&yen;79.00<i>￥339</i></p>
+                </div>
+                <div class="money-sum">
+                    <span class="tips-sum">已售出66220件</span>
+                    <a href="#" class="goumai">立即抢购</a>
+                </div>
+                </a>
+            </li> -->
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="/public/swiper/swiper-3.4.2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var ulLists = $(".qiangtou-list ul"); //ul
+        var dateList = $(".qiangtou-date");
+        var slideList = $('.slide-list');
+        var timeObj = { //入参对象
+            hour: '',
+            page: 1,
+            limit: 50,
+            date: ''
+        }
+        layer.open({
+            type: 2,
+            shadeClose: false,
+            content: '加载中'
+        });
+        //轮播图
+        $.ajax({
+            type: "GET",
+            url: "/mobile/Seckill/getSlider",
+            dataType: "json",
+            success: function (res) {
+                var _html = '';
+                $.each(res.data, function(index,value){
+                    _html += ' <div class="swiper-slide"><a href="/Mobile/Goods/goodsInfo/id/'+value.goods_id+'"><img src="'+value.banner_img+'" alt=""></a></div>';
+                })
+                slideList.append(_html);
+
+                var swiperSlide = new Swiper('.swiper-container-slide', {
+                    pagination: '.swiper-pagination',
+                    autoplay: 3000,
+                    paginationClickable: true
+                });
+                loadDateList(); //加载时间列表
+                getList(); //加载列表
+             }
+         });
+
+         function loadDateList(){
+            $.ajax({
+                type: "GET",
+                url: "/mobile/Seckill/getDateList",
+                dataType: "json",
+                success: function (res) {
+                    var _html = '';
+                    $.each(res.data, function(index,value){
+                        _html += '<div class="swiper-slide" datebox="'+value.date+'"><span>'+value.time+':00</span><p>'+value.text+'</p></div>';
+                    })
+                    dateList.append(_html); //拼接
+
+                    var swiper = new Swiper('.swiper-countdown', { //滚动控件
+                        slidesPerView: 4,
+                        spaceBetween: 50
+                    });
+
+                    //点击时间
+                    $(".qiangtou-date .swiper-slide").click(function () {
+                        var _index = $(this).index();
+                        layer.open({
+                            type: 2,
+                            shadeClose: false,
+                            content: '加载中'
+                        });
+
+                        $(this).addClass("qiangtou-date-active").siblings().removeClass("qiangtou-date-active");
+                        ulLists.eq(_index).show().siblings().hide();
+                        var hour = $(this).siblings('span').text();
+                        var dateBox = $(this).attr("datebox");
+                        timeObj.hour = $(this).text().slice(0,2);
+                        timeObj.date = dateBox;
+                        getList(timeObj) //列表
+                    })
+                }
+            });
+        }
+        //获取产品列表
+
+        function getList(obj){
+            $.ajax({
+                type: "GET",
+                url: "/mobile/Seckill/getGoods",
+                data: obj,
+                dataType: "json",
+                success: function (res) {
+
+                    var now = new Date();
+                    var nowItem = '';
+                    var hours = new Date().getHours();
+                    if(obj != null){
+                        nowItem = new Date(obj.date);
+                    }
+                    if(res.data.length == 0 || nowItem == now){
+                        layer.open({
+                            content: "此时间段无活动！",
+                            btn: '确定',
+                            yes: function(index){
+                              window.location.href = "http://www.leletao88.com/mobile/Index/index.html";
+                            }
+                        });
+                        return;
+                    }
+
+                    ulLists.text('');
+                    var _html = ' ';
+                    var strTips = '';
+                    $.each(res.data, function(index,value){
+                        var datecuo = Math.round(new Date().getTime()/1000);
+                        var aLink = '';
+                        if(hours<value.period_time || hours>value.period_time || datecuo<value.start_time){
+                            aLink = '<a href="javacript:;" class="dateTips">';
+                        }else{
+                            aLink = '<a href="/Mobile/Goods/goodsInfo/id/'+value.goods_id+'">';
+                        }
+                        _html += '<li>'+aLink+
+                                    '<div class="left-img"><img src="'+value.thumb+'" alt=""></div>'+
+                                    '<div class="cp-info">'+
+                                        '<p class="cp-info-title">'+value.goods_name+'</p>'+
+                                        '<p class="cp-price">&yen;'+value.shop_price+'<i>&yen;'+value.market_price+'</i></p>'+
+                                    '</div>'+
+                                    '<div class="money-sum">'+
+                                        '<span class="tips-sum">已售出'+value.sales_sum+'件</span>'+
+                                        '<p href="#" class="goumai">立即抢购</p>'+
+                                    '</div>'+
+                                    '</a></li>';
+
+                            if(hours<value.period_time || datecuo<value.start_time){
+                                strTips = '亲，秒杀时间还没到！'
+                            }else if(hours>value.period_time){
+                                strTips = '亲，秒杀结束了'
+                            }
+                        })
+
+                        ulLists.append(_html);
+                        layer.closeAll(); //关闭加载弹窗
+                        $(".dateTips").click(function(){
+                            layer.open({
+                                content: strTips,
+                                btn: '确定'
+                            });
+                        })
+                    }
+                });
+            }
+
+
+
+        //倒计时
+        var day3 = new Date();
+        var haosum = 10;
+        day3.setTime(day3.getTime()+24*60*60*1000);
+        var interval = 1000;
+        function ShowCountDown(year,month,day,divname){
+            var now = new Date();
+            var endDate = new Date(year, month-1, day);
+            var leftTime = endDate.getTime()-now.getTime();
+            var leftsecond = parseInt(leftTime/1000);
+            var day1=Math.floor(leftsecond/(60*60*24));
+            var hour=Math.floor((leftsecond-day1*24*60*60)/3600);
+            var minute=Math.floor((leftsecond-day1*24*60*60-hour*3600)/60);
+            var second=Math.floor(leftsecond-day1*24*60*60-hour*3600-minute*60);
+            var cc = document.getElementById(divname);
+            if(second<10){
+                second = "0"+second;
+            }
+            if(minute<10){
+                minute = "0"+minute;
+            }
+            var strh = minute.toString();
+            var strs = second.toString();
+            cc.innerHTML = "<span>"+strh[0]+"</span><span>"+strh[1]+"</span>分<span>"+strs[0]+"</span><span>"+strs[1]+"</span>秒";
+        }
+        var boxHour = new Date().getHours();
+        window.setInterval(function(){
+            if(haosum==0){
+                haosum = 10;
+            }
+            haosum--
+            var haosumstr = "<span class='span'>"+haosum+"</span>";
+            $("#divdown2").html(haosumstr);
+        }, 100)
+        window.setInterval(function(){
+            ShowCountDown(day3.getFullYear(),day3.getMonth()+1,day3.getDate(),'divdown1');
+        }, interval);
+
+
+    });
+</script>
+<include file="public/footer_nav"/>
+</body>
+</html>

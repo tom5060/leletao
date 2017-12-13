@@ -1,0 +1,28 @@
+<include file="public/header"/>
+<body>      
+<div id="tbh5v0">
+<div class="user_com">
+<include file="public/uer_topnav"/>
+
+<if condition="$link neq null">
+    <div class="endorse_hend">
+        <p>推广链接</p>
+    </div>
+    <div style="text-align:center;">
+          <p style="width:98%;font-size:14px;line-height:20px;">{$link}</p>
+          <p style="width:98%;font-size:14px;color:#f00">请手动复制</p>
+    </div>
+<else />
+    <div class="endorse_hend">
+        <p>你还不是分销商</p>
+    </div>
+    <div class="Wallet" style="text-align:center;">
+	      <img alt="扫码推广" src="__STATIC__/images/sorry.jpg" style="width:190px;"/>	      
+    </div>
+  </if>	
+</div>
+<include file="public/footer"/>
+</div>
+<include file="public/footer_nav"/>
+</body>
+</html>

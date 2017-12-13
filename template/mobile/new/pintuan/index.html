@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>拼团</title>
+    <link rel="stylesheet" type="text/css" href="/public/swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/public/layer_mobile/need/layer.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pintuan/css/pintuan.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+    <script type="text/javascript" src="/public/js/fontSet.js"></script>
+    <script type="text/javascript" src="/public/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/public/layer_mobile/layer.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <header id="header">
+        <a href="{:U('Goods/categoryList')}" class="top_bt"></a><a id="search_text" class='user_btn'></a>
+        <span href="javascript:void(0)" class="logo">{$tpshop_config['shop_info_store_name']}</span>
+    </header>
+    <div class="slide">
+        <div class="swiper-container-slide">
+            <div class="swiper-wrapper slide-list">
+                <!-- <div class="swiper-slide"><img src="__STATIC__/pintuan/images/img7.png" alt=""></div> -->
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    <!-- <div class="pin-tips">
+        <img src="__STATIC__/pintuan/images/img3.png" alt="">
+        <div class="time-sum" >
+            <i id="divdown1">
+                <span>4</span><span>4</span>天<span>4</span><span>4</span>分<span>3</span><span>6</span>秒
+            </i>
+            <i id="divdown2"></i>
+        </div>
+    </div> -->
+    <div style="margin:1rem auto;max-width:750px;width:100%;"><img style="width: 100%;" src="__STATIC__/pintuan/images/pinti.png" alt=""></div>
+    <div class="qiangtou-list">
+        <ul>
+            <!-- <li>
+                <a href="#">
+                    <div class="left-img"><img src="__STATIC__/pintuan/images/img8.png" alt=""></div>
+                    <div class="cp-info">
+                        <p class="cp-info-title">德国芭乐雅Balea玻尿酸原液德国芭乐雅Balea玻尿酸原液德国芭乐雅Balea玻尿酸原液 平衡亮肤精华7ml德国芭乐雅Balea玻尿酸原液 平衡亮肤精华7ml</p>
+                        <div class="cp-price">
+                            <span>&yen;79.00</span>
+                            <span>已售出66220件</span>
+                            <span>
+                                <img src="__STATIC__/pintuan/images/img9.png" alt="">
+                                <img src="__STATIC__/pintuan/images/img10.png" alt="">
+                                <i href="javascript:;">立即拼团</i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </li> -->
+        </ul>
+    </div>
+    <div style="margin:1rem auto;max-width:750px;width:100%;"><img style="width: 100%;" src="__STATIC__/pintuan/images/pintis.png" alt=""></div>
+</div>
+
+<script type="text/javascript" src="/public/swiper/swiper-3.4.2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var ulLists = $(".qiangtou-list ul"); //ul
+        var dateList = $(".qiangtou-date");
+        var tel = '<div class="swiper-slide">明日预告<p>敬请期待</p></div>';
+        var slideList = $('.slide-list');
+        var startTime,endTime;
+        var timeObj = { //入参对象
+            hour: 08,
+            page: 1,
+            limit: 100
+        }
+        // layer.open({
+        //     type: 2,
+        //     shadeClose: false,
+        //     content: '加载中'
+        // });
+        //轮播图
+        $.ajax({
+            type: "GET",
+            url: "/mobile/Pintuan/getSlider",
+            dataType: "json",
+            success: function (res) {
+                var _html = '';
+                $.each(res.data, function(index,value){
+                    _html += ' <div class="swiper-slide"><a href="/Mobile/Goods/goodsInfo/id/'+value.goods_id+'"><img src="'+value.banner_img+'" alt=""></a></div>';
+                })
+                slideList.append(_html);
+
+                var swiperSlide = new Swiper('.swiper-container-slide', {
+                    pagination: '.swiper-pagination',
+                    autoplay: 3000,
+                    paginationClickable: true
+                });
+            }
+        });
+
+
+        //获取产品列表
+
+        function getList(obj){
+            $.ajax({
+                type: "GET",
+                url: "/mobile/pintuan/getGoods",
+                data: timeObj,
+                dataType: "json",
+                success: function (res) {
+                    ulLists.text('');
+                    var _html = ' ';
+                    $.each(res.data, function(index,value){
+                        var aLink = '';
+                        var imgList = '';
+                        if(value.groups){
+                            $.each(value.groups, function(_index,_value){
+                                imgList += '<img src="'+_value.m_avatar+'" alt="">'
+                            })
+                        }
+                        _html += '<li><a href="/Mobile/Goods/goodsInfo/id/'+value.goods_id+'/tuan/1/">'+
+                                '<div class="left-img"><img src="'+value.thumb+'" alt=""></div>'+
+                                '<div class="cp-info">'+
+                                    '<p class="cp-info-title">'+value.goods_name+'</p>'+
+                                    '<div class="cp-price">'+
+                                        '<span>&yen;'+value.price+'</span>'+
+                                        '<span>已售出'+value.order_num+'件</span>'+
+                                        '<span>'+ imgList+'<i href="javascript:;">立即拼团</i>'+
+                                        '</span>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</a></li>';
+
+                    })
+                    ulLists.append(_html);
+                    layer.closeAll(); //关闭加载弹窗
+
+                    $(".dateTips").click(function(){
+                        layer.open({
+                            content: '亲，抢购时间还没到呢'
+                            ,btn: '确定'
+                        });
+                    })
+                }
+            });
+        }
+        getList();
+
+
+
+    });
+</script>
+<include file="public/footer_nav"/>
+</body>
+</html>

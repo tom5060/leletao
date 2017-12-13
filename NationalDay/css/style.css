@@ -1,0 +1,274 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul,li{
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+img{
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.index{
+    max-width: 750px!important;
+    width: 10rem!important;
+    margin: 0 auto!important;
+}
+.index a{
+    display: block!important;
+}
+.index .index-box{
+    width: 10rem;
+    overflow: hidden;
+}
+.index .index-box a{
+    float: left;
+}
+.index .index-box a:nth-of-type(1){
+    width: 3.426rem;
+}
+.index .index-box a:nth-of-type(2){
+    width: 3.12rem;
+}
+.index .index-box a:nth-of-type(3){
+    width: 3.454rem;
+}
+
+/* 鞋包 */
+.main{
+    max-width: 750px;
+    width: 10rem;
+    margin: 0 auto;
+}
+.main a{
+    display: block;
+}
+.main .box,
+.main .box1,
+.main .box2,
+.main .box3,
+.main .box4,
+.main .box5,
+.main .box6,
+.main .box7,
+.main .box8{
+    overflow: hidden;
+}
+.main .box a{
+    float: left;
+}
+.main .box a:nth-of-type(1){
+    width: 3.72rem;
+}
+.main .box a:nth-of-type(2){
+    width: 6.28rem;
+}
+.main .box a:nth-of-type(3){
+    width: 3.773rem;
+}
+.main .box a:nth-of-type(4){
+    width: 2.506rem;
+}
+
+.main .box2 a{
+    float: left;
+}
+.main .box2 a:nth-of-type(1){
+    width: 3.72rem;
+}
+.main .box2 a:nth-of-type(2){
+    width: 2.734rem;
+}
+.main .box2 a:nth-of-type(3) {
+    width: 3.546rem;
+}
+
+.main .box3 a{
+    float: left;
+}
+.main .box3 a:nth-of-type(1){
+    width: 4rem;
+}
+.main .box3 a:nth-of-type(2){
+    width: 6rem;
+}
+
+.main .box4 a{
+    float: left;
+}
+.main .box4 a:nth-of-type(1){
+    width: 3.44rem;
+}
+.main .box4 a:nth-of-type(2){
+    width: 3.2rem;
+}
+.main .box4 a:nth-of-type(3){
+    width: 3.36rem;
+}
+
+.main .box5 a{
+    float: left;
+}
+.main .box5 a:nth-of-type(1){
+    width: 5.853rem;
+}
+.main .box5 a:nth-of-type(2){
+    width:4.147rem;
+}
+
+.main .box6 a{
+    float: left;
+}
+.main .box6 a:nth-of-type(1){
+    width: 3.294rem;
+}
+.main .box6 a:nth-of-type(2){
+    width: 3.026rem;
+}
+.main .box6 a:nth-of-type(3){
+    width:3.68rem;
+}
+
+
+.main .box7 a{
+    float: left;
+}
+.main .box7 a:nth-of-type(1){
+    width: 3.293rem;
+}
+.main .box7 a:nth-of-type(2){
+    width: 3.414rem;
+}
+.main .box7 a:nth-of-type(3){
+    width:3.293rem;
+}
+.main .box8 a{
+    float: left;
+}
+.main .box8 a:nth-of-type(1){
+    width: 3.254rem;
+}
+.main .box8 a:nth-of-type(2){
+    width: 3.24rem;
+}
+.main .box8 a:nth-of-type(3){
+    width:3.506rem;
+}
+.xie-img{
+    width: 2.7rem;
+    margin: 0 3.65rem;
+    margin-top: 0.7rem;
+    margin-bottom: 0.2rem;
+}
+
+/* 家电 */
+.jiadian1{
+    overflow: hidden;
+}
+.jiadian1 a{
+    width: 5rem;
+    float: left;
+}
+
+/* 服饰 */
+.fushi1 {
+    overflow: hidden;
+}
+.fushi1 a{
+    width: 5rem;
+    float: left;
+}
+.fushi2 a{
+    width: 5rem;
+    float: left;
+}
+.fushi2 a:nth-of-type(1){
+    width: 3.586rem;
+}
+.fushi2 a:nth-of-type(2){
+    width: 6.414rem;
+}
+.fushi2 a:nth-of-type(3){
+    width: 3.293rem;
+}
+.fushi2 a:nth-of-type(4){
+    width: 3.12rem;
+}
+
+/*水果专区  */
+.shuiguo1 {
+    overflow: hidden;
+}
+.shuiguo1 a{
+    width: 5rem;
+    float: left;
+}
+
+/* 婴儿 */
+.yinger{
+    background: #61b2ea;
+    overflow: hidden;
+}
+.yinger a{
+    width: 5rem;
+    float: left;
+}
+
+/* 日用 */
+.riyong{
+    overflow: hidden;
+}
+.riyong a{
+    width: 5rem;
+    float: left;
+}
+
+/* 美妆 */
+.meizhuang{
+    background: #fae8e8;
+    overflow: hidden;
+}
+.meizhuang a{
+    background: #fae8e8;
+    width: 5rem;
+    float: left;
+}
