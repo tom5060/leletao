@@ -141,7 +141,8 @@
         </div>
     </div>
 </div>
-<div class="pintuan-index" >
+<!--拼团-->
+<!--<div class="pintuan-index" >
     <div class="pintuan-title"><img src="__STATIC__/new_index/img12.png" alt=""></div>
     <div class="pintuan-img"><a href="/mobile/pintuan/index.html"><img src="__STATIC__/new_index/img3.jpg" alt=""></a></div>
     <div class="pintuan-sum">
@@ -155,7 +156,7 @@
             <a href="/mobile/pintuan/index.html" class="anniu-img"><img  src="__STATIC__/new_index/anniu.png" alt=""></a>
         </div>
     </div>
-</div>
+</div>-->
 <div class="newuser">
     <div class="newuser-margin">
         <div class="img1"><img src="__STATIC__/new_index/newuser.png" alt=""></div>
@@ -271,30 +272,30 @@
        });
 
        //拼团
-       $.ajax({
-           type: "GET",
-           url: "/mobile/Pintuan/homeTips",
-           dataType: "json",
-           success: function (res) {
-               var _html = '';
-               var _pinimg = '';
-               var isumstr = res.tuan_count.toString();
-               $.each(isumstr, function(index, value) {
-                   _html += '<i>'+value+'</i>';
-               });
-               $.each(res.user, function(index, value) {
-                   if(index <2){
-                       _pinimg += '<img class="img1" src="'+value.m_avatar+'" alt="">';
-                   }
-
-               });
-              //pinsum.append(_html);
-              pinimg.append(_pinimg);
-                //拼接
-
-
-           }
-       });
+//       $.ajax({
+//           type: "GET",
+//           url: "/mobile/Pintuan/homeTips",
+//           dataType: "json",
+//           success: function (res) {
+//               var _html = '';
+//               var _pinimg = '';
+//               var isumstr = res.tuan_count.toString();
+//               $.each(isumstr, function(index, value) {
+//                   _html += '<i>'+value+'</i>';
+//               });
+//               $.each(res.user, function(index, value) {
+//                   if(index <2){
+//                       _pinimg += '<img class="img1" src="'+value.m_avatar+'" alt="">';
+//                   }
+//
+//               });
+//              //pinsum.append(_html);
+//              pinimg.append(_pinimg);
+//                //拼接
+//
+//
+//           }
+//       });
 
 
        //获取产品列表
